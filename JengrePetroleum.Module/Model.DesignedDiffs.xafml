@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="JengrePetroleum">
+  <Options>
+    <LayoutManagerOptions RequiredFieldMark="*" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="23.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="23.1.5.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="Diesel_DetailView" ImageName="Shading" />
+    <DetailView Id="Maintainance_DetailView" ImageName="Actions_Options" />
+    <DetailView Id="Trip_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="73.34235453315291">
+            <LayoutGroup Id="Trip" RelativeSize="100">
+              <LayoutGroup Id="Trip_col1" RelativeSize="49.909909909909906">
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="36.94779116465863" Caption="Basic Trip Info" Direction="Vertical" IsNewNode="True">
+                  <LayoutItem Id="Driver" ViewItem="Driver" Index="0" RelativeSize="23.28767123287671" IsNewNode="True" />
+                  <LayoutItem Id="Truck" ViewItem="Truck" Index="1" RelativeSize="17.80821917808219" IsNewNode="True" />
+                  <LayoutItem Id="FromLocation" ViewItem="FromLocation" Index="2" RelativeSize="17.80821917808219" IsNewNode="True" />
+                  <LayoutItem Id="ToLcation" ViewItem="ToLcation" Index="3" RelativeSize="17.80821917808219" IsNewNode="True" />
+                  <LayoutItem Id="TripDate" ViewItem="TripDate" Index="4" RelativeSize="23.28767123287671" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="35.34136546184739" Caption="Haulage info" IsNewNode="True">
+                  <LayoutGroup Id="Autoede668ac-b820-492e-964a-7eda62091e02" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="76.71232876712328" IsNewNode="True">
+                    <LayoutGroup Id="Autoee270ffc-de50-42a4-951a-89d50599e8af" ShowCaption="False" Caption="" Index="0" RelativeSize="49.906890130353815" IsNewNode="True">
+                      <LayoutItem Id="Product" ViewItem="Product" Index="0" RelativeSize="30.357142857142858" IsNewNode="True" />
+                      <LayoutItem Id="Depot" ViewItem="Depot" Index="1" RelativeSize="23.214285714285715" IsNewNode="True" />
+                      <LayoutItem Id="ReceivingDate" ViewItem="ReceivingDate" Index="2" RelativeSize="23.214285714285715" IsNewNode="True" />
+                      <LayoutItem Id="MeterTicket" ViewItem="MeterTicket" Index="3" RelativeSize="23.214285714285715" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Auto2fb13df4-259e-4ce9-8d72-8dbab89b2ba0" ShowCaption="False" Caption="" Index="1" RelativeSize="50.093109869646185" IsNewNode="True">
+                      <LayoutItem Id="Quantity" ViewItem="Quantity" Index="0" RelativeSize="30.357142857142858" IsNewNode="True" />
+                      <LayoutItem Id="Haulage" ViewItem="Haulage" Index="1" RelativeSize="23.214285714285715" IsNewNode="True" />
+                      <LayoutItem Id="LeavingDate" ViewItem="LeavingDate" Index="2" RelativeSize="23.214285714285715" IsNewNode="True" />
+                      <LayoutItem Id="SMRNumber" ViewItem="SMRNumber" Index="3" RelativeSize="23.214285714285715" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutItem Id="SMRDate" ViewItem="SMRDate" Index="1" RelativeSize="23.28767123287671" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="SMRNumber" RelativeSize="4.7272727272727275" Index="1" Removed="True" />
+                <LayoutGroup Id="Auto5a31ad6e-9e05-41dc-b143-ba39d7866792" ShowCaption="False" Caption="" Direction="Horizontal" Index="2" RelativeSize="5.220883534136546" IsNewNode="True">
+                  <LayoutItem Id="WaybillRate" ViewItem="WaybillRate" Index="0" RelativeSize="50" IsNewNode="True" />
+                  <LayoutItem Id="WaybillDate" ViewItem="WaybillDate" Index="1" RelativeSize="50" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="SMRDate" RelativeSize="4.7272727272727275" Index="2" Removed="True" />
+                <LayoutItem Id="ToLcation" RelativeSize="5.158730158730159" Index="2" Removed="True" />
+                <LayoutItem Id="WaybillDate" RelativeSize="5.220883534136546" Index="2" Removed="True" />
+                <LayoutItem Id="Depot" RelativeSize="5.158730158730159" Index="3" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Index="3" RelativeSize="22.48995983935743" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="TotalExpense" RelativeSize="5.220883534136546" Index="3" Removed="True" />
+                <LayoutItem Id="WayBillAmount" ViewItem="WayBillAmount" Index="3" RelativeSize="5.508474576271187" Removed="True" />
+                <LayoutItem Id="Haulage" RelativeSize="4.7272727272727275" Index="4" Removed="True" />
+                <LayoutItem Id="LoadingFee" RelativeSize="5.220883534136546" Index="4" Removed="True" />
+                <LayoutItem Id="MeterTicket" RelativeSize="4.7272727272727275" Index="4" Removed="True" />
+                <LayoutItem Id="TripDate" RelativeSize="5.220883534136546" Index="4" Removed="True" />
+                <LayoutItem Id="LeavingDate" RelativeSize="4.7272727272727275" Index="5" Removed="True" />
+                <LayoutItem Id="ReceivingDate" RelativeSize="4.7272727272727275" Index="5" Removed="True" />
+                <LayoutItem Id="Truck" ViewItem="Truck" Index="11" RelativeSize="5.158730158730159" Removed="True" />
+                <LayoutItem Id="Driver" RelativeSize="5.158730158730159" Removed="True" />
+                <LayoutItem Id="FromLocation" RelativeSize="5.158730158730159" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Trip_col2" RelativeSize="50.090090090090094">
+                <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="47.389558232931726" Caption="Finance" IsNewNode="True">
+                  <LayoutItem Id="WayBillAmount" ViewItem="WayBillAmount" Index="0" RelativeSize="17.171717171717173" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.DieselCost" ViewItem="Diesel.DieselCost" Index="1" RelativeSize="13.131313131313131" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.TripAlowance" ViewItem="Diesel.TripAlowance" Index="2" RelativeSize="13.131313131313131" IsNewNode="True" />
+                  <LayoutItem Id="TotalMaintainaceCost" ViewItem="TotalMaintainaceCost" Index="3" RelativeSize="13.131313131313131" IsNewNode="True" />
+                  <LayoutItem Id="LoadingFee" ViewItem="LoadingFee" Index="4" RelativeSize="13.131313131313131" IsNewNode="True" />
+                  <LayoutItem Id="TotalExpense" ViewItem="TotalExpense" Index="5" RelativeSize="13.131313131313131" IsNewNode="True" />
+                  <LayoutItem Id="TripBalance" ViewItem="TripBalance" Index="6" RelativeSize="17.171717171717173" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="52.610441767068274" Caption="Diesel Details" IsNewNode="True">
+                  <LayoutItem Id="Diesel.Clerk" ViewItem="Diesel.Clerk" Index="0" RelativeSize="15.178571428571429" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Trip" ViewItem="Diesel.Trip" Index="1" RelativeSize="11.607142857142858" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Quantity" ViewItem="Diesel.Quantity" Index="2" RelativeSize="11.607142857142858" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.UnitPrice" ViewItem="Diesel.UnitPrice" Index="3" RelativeSize="11.607142857142858" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.TotalCost" ViewItem="Diesel.TotalCost" Index="4" RelativeSize="11.607142857142858" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Date" ViewItem="Diesel.Date" Index="5" RelativeSize="11.607142857142858" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Approval" ViewItem="Diesel.Approval" Index="6" RelativeSize="11.607142857142858" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Station" ViewItem="Diesel.Station" Index="7" RelativeSize="15.178571428571429" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="TotalMaintainaceCost" RelativeSize="5.220883534136546" Index="2" Removed="True" />
+                <LayoutItem Id="TripDisplayName" RelativeSize="6.488549618320611" Index="3" Removed="True" />
+                <LayoutItem Id="Diesel.Approval" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.Date" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.DieselCost" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.Quantity" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.Station" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.TotalCost" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.TripAlowance" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.UnitPrice" RelativeSize="5.158730158730159" Index="6" Removed="True" />
+                <LayoutItem Id="Diesel.Clerk" RelativeSize="5.158730158730159" Removed="True" />
+                <LayoutItem Id="Diesel.Trip" RelativeSize="5.158730158730159" Removed="True" />
+                <LayoutItem Id="Product" RelativeSize="4.7272727272727275" Removed="True" />
+                <LayoutItem Id="Quantity" RelativeSize="4.513888888888889" Removed="True" />
+                <LayoutItem Id="TripBalance" RelativeSize="4.961832061068702" Removed="True" />
+                <LayoutItem Id="WaybillRate" RelativeSize="6.827309236947791" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="26.65764546684709">
+            <LayoutGroup Id="Diesel.ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="Diesel.ChangeHistory" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Work_DetailView" ImageName="ModelEditor_Application" />
+  </Views>
+</Application>

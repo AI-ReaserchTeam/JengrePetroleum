@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Company="Jengre Petroleum Company">
+  <NavigationItems NavigationStyle="Accordion">
+    <Items>
+      <Item Id="KPI" Removed="True" />
+      <Item Id="Reports">
+        <Items>
+          <Item Id="Analysis_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="23.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="23.1.5.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+    <ListView Id="EmployeeBase_ListView" DataAccessMode="Client" EditorTypeName="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+      <Columns>
+        <ColumnInfo Id="FirstName" SortIndex="-1" SortOrder="None" Width="95" />
+        <ColumnInfo Id="LastName" SortIndex="0" SortOrder="Ascending" Width="109" />
+        <ColumnInfo Id="Email" Width="61" />
+        <ColumnInfo Id="PhoneContact" Width="120" />
+        <ColumnInfo Id="Department" Width="104" />
+        <ColumnInfo Id="Gender" Width="72" />
+        <ColumnInfo Id="Position" Width="77" />
+        <ColumnInfo Id="Status" Width="64" />
+        <ColumnInfo Id="IsActive" Width="79" />
+        <ColumnInfo Id="UserName" Width="97" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
