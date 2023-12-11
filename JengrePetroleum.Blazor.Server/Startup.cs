@@ -59,9 +59,9 @@ namespace JengrePetroleum.Blazor.Server
                     .AddSecuredXpo((serviceProvider, options) =>
                     {
                         string connectionString = null;
-                        if (Configuration.GetConnectionString("ConnectionString") != null)
+                        if (Configuration.GetConnectionString("AzureConnectionString") != null)
                         {
-                            connectionString = Configuration.GetConnectionString("ConnectionString");
+                            connectionString = Configuration.GetConnectionString("AzureConnectionString");
                         }
 #if EASYTEST
                     if(Configuration.GetConnectionString("EasyTestConnectionString") != null) {
