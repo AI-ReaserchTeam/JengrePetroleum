@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using JengrePetroleum.Blazor.Server.Services;
 using JengrePetroleum.Module.BusinessObjects;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -63,6 +64,9 @@ namespace JengrePetroleum.Blazor.Server
                         {
                             connectionString = Configuration.GetConnectionString("AzureConnectionString");
                         }
+
+                        IXpoDataStoreProvider dataStoreProvider = XPObjectSpaceProvider.GetDataStoreProvider(connectionString, null, true);
+                        SequenceGenerator.Initialize(dataStoreProvider);
 #if EASYTEST
                     if(Configuration.GetConnectionString("EasyTestConnectionString") != null) {
                         connectionString = Configuration.GetConnectionString("EasyTestConnectionString");

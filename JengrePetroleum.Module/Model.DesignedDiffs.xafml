@@ -1,5 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="JengrePetroleum">
+  <BOModel>
+    <Class Name="JengrePetroleum.Module.BusinessObjects.Station.FillingStation" DefaultListViewShowFindPanel="False" />
+  </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Employees" Index="0" Caption="EMPLOYEES">
+        <Items>
+          <Item Id="Driver_ListView" Caption="DRIVERS" />
+          <Item Id="Employee_ListView" Caption="STAFF" />
+        </Items>
+      </Item>
+      <Item Id="Transportation" Index="1" Caption="TRANSPORTATION">
+        <Items>
+          <Item Id="Diesel_ListView" Caption="DIESEL" />
+          <Item Id="Maintainance_ListView" Caption="MAINTAINANCE" />
+          <Item Id="Trip_ListView" Caption="TRIPS" />
+          <Item Id="Truck_ListView" Caption="TRUCKS" />
+        </Items>
+      </Item>
+      <Item Id="Stores" Index="2" Caption="STORES" />
+      <Item Id="Fuel Stations" Index="3" Caption="FUEL STATIONS">
+        <Items>
+          <Item Id="FillingStation_ListView" Caption="STATIONS" />
+        </Items>
+      </Item>
+      <Item Id="Default" Caption="DEFAULT" />
+    </Items>
+  </NavigationItems>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
@@ -8,9 +36,110 @@
     <SchemaModule Name="SystemModule" Version="23.1.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="Diesel_DetailView" ImageName="Shading" />
-    <DetailView Id="Maintainance_DetailView" ImageName="Actions_Options" />
-    <DetailView Id="Trip_DetailView">
+    <DetailView Id="Diesel_DetailView" ImageName="Shading" Caption="DIESEL" />
+    <ListView Id="Diesel_ListView" Caption="DIESEL" />
+    <DetailView Id="Driver_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="54.66847090663058">
+            <LayoutGroup Id="Driver" Direction="Horizontal" RelativeSize="100">
+              <LayoutGroup Id="Autoa10c0a9b-b25f-46cf-b863-53d936d20a2d" ShowCaption="False" Caption="" Index="0" RelativeSize="50" IsNewNode="True">
+                <LayoutGroup Id="Driver_col1" ShowCaption="False" Index="0" RelativeSize="75.27777777777777" IsNewNode="True">
+                  <LayoutItem Id="FirstName" ViewItem="FirstName" Index="0" RelativeSize="12.546125461254613" IsNewNode="True" />
+                  <LayoutItem Id="LastName" ViewItem="LastName" Index="1" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="UserName" ViewItem="UserName" Index="2" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="FullName" ViewItem="FullName" Index="3" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="PhoneContact" ViewItem="PhoneContact" Index="4" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="Email" ViewItem="Email" Index="5" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="Address" ViewItem="Address" Index="6" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="LicenseNumber" ViewItem="LicenseNumber" Index="7" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="LicenseExpiryDate" ViewItem="LicenseExpiryDate" Index="8" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="Position" ViewItem="Position" Index="9" RelativeSize="10.70110701107011" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="EmployeeBase_col1" ShowCaption="False" Index="1" RelativeSize="24.72222222222222" IsNewNode="True">
+                  <LayoutItem Id="Department" ViewItem="Department" Index="0" RelativeSize="32.58426966292135" IsNewNode="True" />
+                  <LayoutItem Id="BirthDate" ViewItem="BirthDate" Index="1" RelativeSize="29.213483146067414" IsNewNode="True" />
+                  <LayoutItem Id="Gender" ViewItem="Gender" Index="2" RelativeSize="38.20224719101124" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Autoa53404a5-730a-4014-976e-c4815888eac3" ShowCaption="False" Caption="" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutGroup Id="Driver_col2" ShowCaption="False" Index="0" RelativeSize="75.27777777777777" IsNewNode="True">
+                  <LayoutItem Id="Photo" ViewItem="Photo" Index="0" RelativeSize="12.546125461254613" IsNewNode="True" />
+                  <LayoutItem Id="TotalTripsThisYear" ViewItem="TotalTripsThisYear" Index="1" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="TotalTripsThisMonth" ViewItem="TotalTripsThisMonth" Index="2" RelativeSize="9.59409594095941" IsNewNode="True" />
+                  <LayoutItem Id="TotalTrips" ViewItem="TotalTrips" Index="3" RelativeSize="68.26568265682657" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="EmployeeBase_col2" ShowCaption="False" Index="1" RelativeSize="24.72222222222222" IsNewNode="True">
+                  <LayoutItem Id="Status" ViewItem="Status" Index="0" RelativeSize="32.58426966292135" IsNewNode="True" />
+                  <LayoutItem Id="IsActive" ViewItem="IsActive" Index="1" RelativeSize="29.213483146067414" IsNewNode="True" />
+                  <LayoutItem Id="ChangePasswordOnFirstLogon" ViewItem="ChangePasswordOnFirstLogon" Index="2" RelativeSize="38.20224719101124" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Driver_col1" Removed="True" />
+              <LayoutGroup Id="Driver_col2" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="EmployeeBase" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="45.33152909336942">
+            <LayoutGroup Id="Trips" RelativeSize="100">
+              <LayoutItem Id="Trips" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Documents" RelativeSize="100">
+              <LayoutItem Id="Documents" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Maintainance" RelativeSize="100">
+              <LayoutItem Id="Maintainance" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Bank" RelativeSize="100">
+              <LayoutItem Id="Bank" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EmployeeRoles" RelativeSize="100">
+              <LayoutItem Id="EmployeeRoles" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="FillingStation_ListView" Caption="STATION" ShowAutoFilterRow="False" />
+    <DetailView Id="Maintainance_DetailView" ImageName="Actions_Options" Caption="MAINTAINANCE">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22.19215155615697">
+            <LayoutGroup Id="Maintainance" Caption="MAINTAINANCE" RelativeSize="100">
+              <LayoutGroup Id="Maintainance_col1" RelativeSize="50">
+                <LayoutItem Id="MaintainanceDate" RelativeSize="28.333333333333332" />
+                <LayoutItem Id="MaintainanceType" RelativeSize="21.666666666666668" />
+                <LayoutItem Id="Status" RelativeSize="21.666666666666668" />
+                <LayoutItem Id="TotalCost" RelativeSize="28.333333333333332" />
+              </LayoutGroup>
+              <LayoutGroup Id="Maintainance_col2" RelativeSize="50">
+                <LayoutItem Id="Truck" RelativeSize="28.333333333333332" />
+                <LayoutItem Id="Manager" RelativeSize="21.666666666666668" />
+                <LayoutItem Id="Driver" RelativeSize="21.666666666666668" />
+                <LayoutItem Id="DefaultName" RelativeSize="28.333333333333332" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="77.80784844384303">
+            <LayoutGroup Id="Works" RelativeSize="100">
+              <LayoutItem Id="Works" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Maintainance_ListView" Caption="MAINTAINANCE" />
+    <ListView Id="Part_ListView" AllowEdit="False" />
+    <ListView Id="PartStock_StockItems_ListView" AllowEdit="True" />
+    <ListView Id="SparePart_ListView" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="PartNumber" Width="175" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Trip_DetailView" Caption="TRIPS">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="73.34235453315291">
@@ -92,7 +221,6 @@
                 <LayoutItem Id="Diesel.TotalCost" RelativeSize="5.158730158730159" Index="6" Removed="True" />
                 <LayoutItem Id="Diesel.TripAlowance" RelativeSize="5.158730158730159" Index="6" Removed="True" />
                 <LayoutItem Id="Diesel.UnitPrice" RelativeSize="5.158730158730159" Index="6" Removed="True" />
-                <LayoutItem Id="Diesel.Clerk" RelativeSize="5.158730158730159" Removed="True" />
                 <LayoutItem Id="Diesel.Trip" RelativeSize="5.158730158730159" Removed="True" />
                 <LayoutItem Id="Product" RelativeSize="4.7272727272727275" Removed="True" />
                 <LayoutItem Id="Quantity" RelativeSize="4.513888888888889" Removed="True" />
@@ -112,6 +240,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Trip_ListView" Caption="TRIPS" />
+    <DetailView Id="Truck_DetailView" Caption="TRUCKS" />
+    <ListView Id="Truck_ListView" Caption="TRUCKS" />
+    <ListView Id="Tyre_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" AllowUnlink="True" IsGroupPanelVisible="True" />
+    <ListView Id="TyreStock_Tyres_ListView" AllowEdit="True" AllowLink="False" AllowNew="False" AllowUnlink="False" IsGroupPanelVisible="True" />
     <DetailView Id="Work_DetailView" ImageName="ModelEditor_Application" />
   </Views>
 </Application>

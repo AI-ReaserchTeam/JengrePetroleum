@@ -15,7 +15,6 @@ using System.Text;
 
 namespace JengrePetroleum.Module.BusinessObjects.Station
 {
-    [DefaultClassOptions]
     
     public class DieselExpense : BaseObject
     { 

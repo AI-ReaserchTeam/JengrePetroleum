@@ -14,8 +14,8 @@ using System.Text;
 
 namespace JengrePetroleum.Module.BusinessObjects.Station
 {
-    [NavigationItem("Fuel Stations")]
-    [DefaultClassOptions]
+    //[NavigationItem("Fuel Stations")]
+    //[DefaultClassOptions]
    
     public class DailyRecord : BaseObject
     { 

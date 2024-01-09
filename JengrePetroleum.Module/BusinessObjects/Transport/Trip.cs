@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
@@ -22,6 +23,9 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
     [ListViewFilter("Cancelled", "[Status] = 'Cancelled'", true, Index = 3)]
     [ListViewFilter("Pending", "[Status] = 'Pending'", true, Index = 4)]
     [ObjectCaptionFormat("{0:TripDisplayName}")]
+    [Appearance("InProgress", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'InProgress'", FontColor = "Blue", FontStyle = System.Drawing.FontStyle.Bold)]
+    [Appearance("Pending", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'Pending'", FontColor = "Red", FontStyle = System.Drawing.FontStyle.Bold)]
+    [Appearance("Completed", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'Completed'", FontColor = "Green", FontStyle = System.Drawing.FontStyle.Bold)]
     public class Trip : BaseObject
     {
         Diesel diesel;
@@ -37,10 +41,10 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         DateTime leavingDate;
         string meterTicket;
         string depot;
-        string toLcation;
+        string tolocation;
         string fromLocation;
-        DateTime sMRDate;
-        string sMRNumber;
+        DateTime smrdate;
+        string smrnumber;
         Driver driver;
         Truck truck;
         private XPCollection<AuditDataItemPersistent> changeHistory;
@@ -56,6 +60,10 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             {
                 Truck.TruckStatus = TruckStatus.OnTrip;
             }
+            if (Driver != null)
+            {
+                Driver.DriverStatus = DriverStatus.OnTrip;
+            }
 
         }
 
@@ -64,15 +72,15 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         [VisibleInListView(false)]
         public string SMRNumber
         {
-            get => sMRNumber;
-            set => SetPropertyValue(nameof(SMRNumber), ref sMRNumber, value);
+            get => smrnumber;
+            set => SetPropertyValue(nameof(SMRNumber), ref smrnumber, value);
         }
 
         [VisibleInListView(false)]
         public DateTime SMRDate
         {
-            get => sMRDate;
-            set => SetPropertyValue(nameof(SMRDate), ref sMRDate, value);
+            get => smrdate;
+            set => SetPropertyValue(nameof(SMRDate), ref smrdate, value);
         }
 
         [XafDisplayName("FROM")]
@@ -87,8 +95,8 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string ToLcation
         {
-            get => toLcation;
-            set => SetPropertyValue(nameof(ToLcation), ref toLcation, value);
+            get => tolocation;
+            set => SetPropertyValue(nameof(ToLcation), ref tolocation, value);
         }
 
 
@@ -122,6 +130,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(ReceivingDate), ref receivingDate, value);
         }
 
+        [VisibleInDetailView(false)]
         public TripStatus Status
         {
             get => status;
@@ -263,6 +272,15 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
                 changeHistory ??= AuditedObjectWeakReference.GetAuditTrail(Session, this);
                 return changeHistory;
             }
+        }
+
+        [Action(Caption = "Complete Trip", ConfirmationMessage = "Are you sure this trip is completed?", ImageName = "Action_Deny", AutoCommit = true, TargetObjectsCriteria = "Status = 'InProgress'")]
+        public void CompleteTrip()
+        {
+            status = TripStatus.Completed;
+            Truck.TruckStatus = TruckStatus.Available;
+            Driver.DriverStatus = DriverStatus.Available;
+            Truck.CurrentMaintainance.History = MaintainanceHistory.History;
         }
 
 

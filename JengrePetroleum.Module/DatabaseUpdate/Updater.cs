@@ -24,18 +24,12 @@ public class Updater : ModuleUpdater
     public override void UpdateDatabaseAfterUpdateSchema()
     {
         base.UpdateDatabaseAfterUpdateSchema();
-        //string name = "MyName";
-        //DomainObject1 theObject = ObjectSpace.FirstOrDefault<DomainObject1>(u => u.Name == name);
-        //if(theObject == null) {
-        //    theObject = ObjectSpace.CreateObject<DomainObject1>();
-        //    theObject.Name = name;
-        //}
-
-        Employee sampleUser = ObjectSpace.FirstOrDefault<Employee>(u => u.UserName == "Salisu");
+        
+        Employee sampleUser = ObjectSpace.FirstOrDefault<Employee>(u => u.UserName == "JengreUser");
         if (sampleUser == null)
         {
             sampleUser = ObjectSpace.CreateObject<Employee>();
-            sampleUser.UserName = "Salisu";
+            sampleUser.UserName = "JengreUser";
             // Set a password if the standard authentication type is used
             sampleUser.SetPassword("");
 

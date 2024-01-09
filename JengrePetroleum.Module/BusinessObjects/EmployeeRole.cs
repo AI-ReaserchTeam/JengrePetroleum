@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 namespace JengrePetroleum.Module.BusinessObjects
 {
     [ImageName("BO_Role")]
-    [NavigationItem("Employees")]
+    [DefaultClassOptions]
     public class EmployeeRole : PermissionPolicyRoleBase, IPermissionPolicyRoleWithUsers
     {
         public EmployeeRole(Session session)

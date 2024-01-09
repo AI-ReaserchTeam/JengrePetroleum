@@ -14,8 +14,8 @@ using System.Text;
 
 namespace JengrePetroleum.Module.BusinessObjects.Station
 {
-    [DefaultClassOptions]
-    [NavigationItem("Fuel Stations")]
+    //[DefaultClassOptions]
+    //[NavigationItem("Fuel Stations")]
     public class Tank : BaseObject
     {
         public Tank(Session session)
@@ -25,7 +25,6 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
 

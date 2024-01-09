@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -23,17 +24,18 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         {
             base.AfterConstruction();
             Position = BusinessObjects.Position.Driver;
-            Department = Department.Transportation;
+            Department = Department.TRANSPORTATION;
 
         }
 
 
 
+        DriverStatus driverstatus;
         XPCollection<Trip> trips;
         DateTime licenseExpiryDate;
         string licenseNumber;
 
-        [RuleUniqueValue(),RuleRequiredField]
+        [RuleUniqueValue(), RuleRequiredField]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string LicenseNumber
         {
@@ -55,7 +57,12 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(Trips), ref trips, value);
         }
 
-
+        
+        public DriverStatus DriverStatus
+        {
+            get => driverstatus;
+            set => SetPropertyValue(nameof(DriverStatus), ref driverstatus, value);
+        }
 
         [VisibleInListView(false)]
         public int TotalTrips
@@ -103,6 +110,22 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
                 return GetCollection<Maintainance>(nameof(Maintainance));
             }
         }
+    }
+
+    public enum DriverStatus
+    {
+        [ImageName("State_Priority_Low")]
+        [XafDisplayName("Available")]
+        Available,
+        [ImageName("State_Priority_Normal")]
+        [XafDisplayName("On Trip")]
+        OnTrip,
+        [ImageName("State_Priority_High")]
+        [XafDisplayName("On Leave")]
+        OnLeave,
+        [ImageName("State_Priority_Highest")]
+        [XafDisplayName("Suspended")]
+        Suspended
     }
 }
 

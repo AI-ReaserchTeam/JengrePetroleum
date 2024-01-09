@@ -1,22 +1,14 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using JengrePetroleum.Module.BusinessObjects.Transport;
 
 namespace JengrePetroleum.Module.BusinessObjects.Store
 {
     [DefaultClassOptions]
     [NavigationItem("Stores")]
-    public class ServicePart : Inventory
+    [XafDisplayName("SERVICEPART")]
+    public class ServicePart : Part
     {
         public ServicePart(Session session)
             : base(session)
@@ -28,7 +20,21 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
 
         }
 
-     
+
+        Work work;
+
+        [Association("Work-ServiceParts")]
+        public Work Work
+        {
+            get => work;
+            set => SetPropertyValue(nameof(Work), ref work, value);
+        }
+
+        [PersistentAlias("Concat('JENST', PadLeft(ToStr(SequentialNumber), 6, '0'))")]
+        public string PartNumber
+        {
+            get => Convert.ToString(EvaluateAlias(nameof(PartNumber)));
+        }
 
     }
 }

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="PartStock_Parts_ListView" AllowEdit="True" />
+    <ListView Id="Work_Parts_ListView" AllowEdit="True" />
+    <DetailView Id="Trip_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Trip">
+              <LayoutGroup Id="Trip_col2">
+                <LayoutGroup Id="Item2">
+                  <LayoutItem Id="Diesel.Clerk" ViewItem="Diesel.Clerk" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

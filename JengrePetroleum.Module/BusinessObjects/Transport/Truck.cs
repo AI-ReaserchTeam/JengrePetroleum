@@ -37,12 +37,14 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-			this.TruckStatus = TruckStatus.Available;
+			TruckStatus = TruckStatus.Available;
+           
+       
         }
 
 
 
-        XPCollection<Tyre> tyres;
+   
         TruckOwner vehicleOwner;
         TruckStatus truckStatus;
         string model;
@@ -127,12 +129,18 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
                 return GetCollection<TruckFiles>(nameof(TruckFiles));
             }
         }
-        
+
+        [Association("Truck-Tyres")]
         public XPCollection<Tyre> Tyres
         {
-            get => tyres;
-            set => SetPropertyValue(nameof(Tyres), ref tyres, value);
+            get
+            {
+                return GetCollection<Tyre>(nameof(Tyres));
+            }
         }
+
+       
+
 
         [CollectionOperationSet(AllowAdd = false, AllowRemove = false)]
         public XPCollection<AuditDataItemPersistent> ChangeHistory

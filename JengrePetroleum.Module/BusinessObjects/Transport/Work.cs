@@ -19,10 +19,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
   
     public class Work : BaseObject
     { 
-        public Work(Session session)
-            : base(session)
-        {
-        }
+        public Work(Session session): base(session){ }
         public override void AfterConstruction()
         {
             base.AfterConstruction();
@@ -41,8 +38,6 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get => maintainance;
             set => SetPropertyValue(nameof(Maintainance), ref maintainance, value);
         }
-
-
 
         public decimal Amount
         {
@@ -64,16 +59,41 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get => date;
         }
 
-        [Association("Work-WorkSpareParts")]
-        public XPCollection<WorkSparePart> WorkSpareParts
+        [Association("Work-Parts")]
+        public XPCollection<SparePart> SpareParts
         {
             get
             {
-                return GetCollection<WorkSparePart>(nameof(WorkSpareParts));
+                return GetCollection<SparePart>(nameof(SpareParts));
             }
         }
 
-        [PersistentAlias("WorkSpareParts.Sum(TotalCost)")]
+        [Association("Work-ServiceParts")]
+        public XPCollection<ServicePart> ServiceParts
+        {
+            get
+            {
+                return GetCollection<ServicePart>(nameof(ServiceParts));
+            }
+        }
+
+        [Association("Work-Tyres")]
+        public XPCollection<Tyre> Tyres
+        {
+            get
+            {
+                return GetCollection<Tyre>(nameof(Tyres));
+            }
+        }
+
+
+        [PersistentAlias("ServiceParts.Sum(TotalCost)")]
+        public decimal TotalServicePartsCost
+        {
+            get { return Convert.ToDecimal(EvaluateAlias(nameof(TotalServicePartsCost))); }
+        }
+
+        [PersistentAlias("ServiceParts.Sum(TotalCost)")]
         public decimal TotalSparePartsCost
         {
             get { return Convert.ToDecimal(EvaluateAlias(nameof(TotalSparePartsCost))); }

@@ -35,6 +35,7 @@ namespace JengerePetroleum.Module.BusinessObjects
 		}
 
 		
+		[Appearance("MaintainanceManager", Enabled = false, Criteria = "Position != '3'", Context = "DetailView")]
         [Association("Employee-MaintainanceManager")]
         public XPCollection<Maintainance> Maintainace
         {

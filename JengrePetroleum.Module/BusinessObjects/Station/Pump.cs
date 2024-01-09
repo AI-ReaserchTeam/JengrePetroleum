@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace JengrePetroleum.Module.BusinessObjects.Station
 {
-    [NavigationItem("Fuel Stations")]
-    [DefaultClassOptions]
+    //[NavigationItem("Fuel Stations")]
+    //[DefaultClassOptions]
     public class Pump : BaseObject
     { 
         public Pump(Session session)
@@ -17,7 +17,6 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
        
 
