@@ -5,6 +5,11 @@
   </BOModel>
   <NavigationItems>
     <Items>
+      <Item Id="Default" Caption="DEFAULT" Index="0">
+        <Items>
+          <Item Id="EmployeeRole_ListView" Index="0" />
+        </Items>
+      </Item>
       <Item Id="Employees" Index="0" Caption="EMPLOYEES">
         <Items>
           <Item Id="Driver_ListView" Caption="DRIVERS" />
@@ -13,19 +18,48 @@
       </Item>
       <Item Id="Transportation" Index="1" Caption="TRANSPORTATION">
         <Items>
-          <Item Id="Diesel_ListView" Caption="DIESEL" />
-          <Item Id="Maintainance_ListView" Caption="MAINTAINANCE" />
-          <Item Id="Trip_ListView" Caption="TRIPS" />
-          <Item Id="Truck_ListView" Caption="TRUCKS" />
+          <Item Id="Maintainance_ListView" Caption="MAINTAINANCE" Index="0" />
+          <Item Id="Diesel_ListView" Caption="DIESEL" Index="1" />
+          <Item Id="Trip_ListView" Caption="TRIPS" Index="2" />
+          <Item Id="Truck_ListView" Caption="TRUCKS" Index="4" />
+          <Item Id="IncomeAccount_ListView" Caption="INCOME ACCOUNT" />
         </Items>
       </Item>
-      <Item Id="Stores" Index="2" Caption="STORES" />
+      <Item Id="Stores" Index="2" Caption="STORES">
+        <Items>
+          <Item Id="SERVICEPART" Caption="SERVICEPARTS" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="ServicePart_ListView" ViewId="ServicePart_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="ServicePartStock_ListView" ViewId="ServicePartStock_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="ServicePart_ListView" Removed="True" />
+          <Item Id="ServicePartStock_ListView" Removed="True" />
+          <Item Id="SPAREPART" Caption="SPAREPARTS" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="SparePart_ListView" ViewId="SparePart_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="SparePartStock_ListView" ViewId="SparePartStock_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="SparePart_ListView" Removed="True" />
+          <Item Id="SparePartStock_ListView" Removed="True" />
+          <Item Id="Tyre_ListView" Removed="True" />
+          <Item Id="TyreStock_ListView" Removed="True" />
+          <Item Id="TYRESTORE" Caption="TYRESTORE" ImageName="Shopping_Sales" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Tyre_ListView" ViewId="Tyre_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TyreStock_ListView" ViewId="TyreStock_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TyreTransaction_ListView" ViewId="TyreTransaction_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="TyreTransaction_ListView" Removed="True" />
+        </Items>
+      </Item>
       <Item Id="Fuel Stations" Index="3" Caption="FUEL STATIONS">
         <Items>
           <Item Id="FillingStation_ListView" Caption="STATIONS" />
         </Items>
       </Item>
-      <Item Id="Default" Caption="DEFAULT" />
     </Items>
   </NavigationItems>
   <Options>
@@ -36,8 +70,58 @@
     <SchemaModule Name="SystemModule" Version="23.1.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="DailyExpense_ListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="226" />
+        <ColumnInfo Id="Amount" Width="154" />
+        <ColumnInfo Id="Item" Width="107" />
+        <ColumnInfo Id="Station" Width="140" />
+      </Columns>
+    </ListView>
+    <ListView Id="DailyRecord_ListView">
+      <Columns>
+        <ColumnInfo Id="OpeningMoney" Width="186" />
+        <ColumnInfo Id="ClosingMoney" Width="182" />
+        <ColumnInfo Id="OpeningLitres" Width="169" />
+        <ColumnInfo Id="ClosingLitres" Width="165" />
+        <ColumnInfo Id="OpeningTotalizer" Width="206" />
+        <ColumnInfo Id="ClosingTotalizer" Width="202" />
+        <ColumnInfo Id="Price" Width="193" />
+        <ColumnInfo Id="Dipping" Width="93" />
+        <ColumnInfo Id="TotalizerAmount" Width="172" />
+        <ColumnInfo Id="Litres" Width="134" />
+        <ColumnInfo Id="Sales" Width="127" />
+      </Columns>
+    </ListView>
     <DetailView Id="Diesel_DetailView" ImageName="Shading" Caption="DIESEL" />
-    <ListView Id="Diesel_ListView" Caption="DIESEL" />
+    <ListView Id="Diesel_ListView" Caption="DIESEL">
+      <Columns>
+        <ColumnInfo Id="Date" Width="158" Index="0" />
+        <ColumnInfo Id="Quantity" Width="161" Index="1" />
+        <ColumnInfo Id="DieselClerk" Width="182" Index="2" />
+        <ColumnInfo Id="Trip" Width="272" Index="3" />
+        <ColumnInfo Id="DieselCost" Width="174" Index="4" />
+        <ColumnInfo Id="UnitPrice" Width="141" Index="5" />
+        <ColumnInfo Id="TripAlowance" Width="164" Index="6" />
+        <ColumnInfo Id="TotalCost" Width="162" Index="7" />
+        <ColumnInfo Id="Approval" Width="150" Index="8" />
+        <ColumnInfo Id="Station" Width="122" Index="9" />
+        <ColumnInfo Id="DieselStation" Width="205" Index="10" />
+        <ColumnInfo Id="NONJPStation" Width="211" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="DieselExpense_ListView">
+      <Columns>
+        <ColumnInfo Id="Date" Width="168" />
+        <ColumnInfo Id="Diesel" Width="127" />
+        <ColumnInfo Id="Price" Width="111" />
+        <ColumnInfo Id="TripAllowance" Width="241" />
+        <ColumnInfo Id="Driver" Width="125" />
+        <ColumnInfo Id="Truck" Width="119" />
+        <ColumnInfo Id="Trip" Width="98" />
+        <ColumnInfo Id="Station" Width="140" />
+      </Columns>
+    </ListView>
     <DetailView Id="Driver_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -100,6 +184,93 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Driver_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="UserName" Index="0" Width="192" />
+        <ColumnInfo Id="FirstName" Width="217" Index="1" />
+        <ColumnInfo Id="LastName" Index="2" Width="186" />
+        <ColumnInfo Id="LicenseNumber" Width="261" Index="3" />
+        <ColumnInfo Id="PhoneContact" Index="4" Width="243" />
+        <ColumnInfo Id="Email" Index="5" Width="117" />
+        <ColumnInfo Id="LicenseExpiryDate" Width="301" Index="6" />
+        <ColumnInfo Id="IsActive" Index="7" Width="156" />
+        <ColumnInfo Id="DriverStatus" Width="214" Index="8" />
+      </Columns>
+    </ListView>
+    <ListView Id="Driver_Maintainance_ListView">
+      <Columns>
+        <ColumnInfo Id="Driver" Index="-1" Width="113" />
+        <ColumnInfo Id="Maintainace" Width="212" />
+        <ColumnInfo Id="MaintainanceType" Width="99" Index="1" />
+        <ColumnInfo Id="Status" Width="114" Index="2" />
+        <ColumnInfo Id="TotalCost" Width="162" Index="3" />
+        <ColumnInfo Id="Truck" Width="106" Index="4" />
+        <ColumnInfo Id="Executive" Width="152" />
+        <ColumnInfo Id="MaintainanceDate" Width="158" Index="6" />
+        <ColumnInfo Id="History" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="Driver_Trips_ListView">
+      <Columns>
+        <ColumnInfo Id="FromLocation" Width="222" />
+        <ColumnInfo Id="ToLcation" Width="169" />
+        <ColumnInfo Id="Depot" Width="130" />
+        <ColumnInfo Id="Status" Width="128" />
+        <ColumnInfo Id="Haulage" Width="175" />
+        <ColumnInfo Id="Truck" Width="119" />
+        <ColumnInfo Id="Driver" Width="125" />
+        <ColumnInfo Id="Diesel" Width="127" Index="7" />
+        <ColumnInfo Id="TotalExpense" Width="156" Index="8" />
+        <ColumnInfo Id="TripBalance" Width="148" Index="9" />
+        <ColumnInfo Id="Product" Width="151" Index="10" />
+        <ColumnInfo Id="Quantity" Width="103" Index="11" />
+        <ColumnInfo Id="TripDate" Width="168" Index="12" />
+      </Columns>
+    </ListView>
+    <ListView Id="Employee_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Width="172" Index="0" />
+        <ColumnInfo Id="FirstName" Width="194" Index="1" />
+        <ColumnInfo Id="LastName" Width="167" Index="2" />
+        <ColumnInfo Id="Email" Width="107" Index="3" />
+        <ColumnInfo Id="PhoneContact" Width="216" Index="4" />
+        <ColumnInfo Id="Department" Width="184" Index="5" />
+        <ColumnInfo Id="Gender" Width="129" Index="6" />
+        <ColumnInfo Id="Position" Width="138" Index="7" />
+        <ColumnInfo Id="Status" Width="114" Index="8" />
+        <ColumnInfo Id="IsActive" Width="139" Index="9" />
+      </Columns>
+    </ListView>
+    <ListView Id="Employee_Maintainace_ListView">
+      <Columns>
+        <ColumnInfo Id="MaintainanceType" Width="241" Index="1" />
+        <ColumnInfo Id="Status" Width="103" Index="2" />
+        <ColumnInfo Id="TotalCost" Width="145" Index="3" />
+        <ColumnInfo Id="Truck" Width="96" Index="4" />
+        <ColumnInfo Id="Driver" Width="102" Index="5" />
+        <ColumnInfo Id="MaintainanceDate" Width="239" Index="6" />
+      </Columns>
+    </ListView>
+    <ListView Id="FillingStation_DailyExpense_ListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="226" />
+        <ColumnInfo Id="Amount" Width="154" />
+        <ColumnInfo Id="Item" Width="107" />
+        <ColumnInfo Id="Station" Index="3" Width="140" />
+      </Columns>
+    </ListView>
+    <ListView Id="FillingStation_DieselExpenses_ListView">
+      <Columns>
+        <ColumnInfo Id="Date" Width="168" />
+        <ColumnInfo Id="Diesel" Width="127" />
+        <ColumnInfo Id="Price" Width="111" />
+        <ColumnInfo Id="TripAllowance" Width="241" />
+        <ColumnInfo Id="Driver" Width="125" />
+        <ColumnInfo Id="Truck" Width="119" />
+        <ColumnInfo Id="Trip" Width="98" />
+        <ColumnInfo Id="Station" Index="7" Width="140" />
+      </Columns>
+    </ListView>
     <ListView Id="FillingStation_ListView" Caption="STATION" ShowAutoFilterRow="False" />
     <DetailView Id="Maintainance_DetailView" ImageName="Actions_Options" Caption="MAINTAINANCE">
       <Layout>
@@ -114,9 +285,7 @@
               </LayoutGroup>
               <LayoutGroup Id="Maintainance_col2" RelativeSize="50">
                 <LayoutItem Id="Truck" RelativeSize="28.333333333333332" />
-                <LayoutItem Id="Manager" RelativeSize="21.666666666666668" />
                 <LayoutItem Id="Driver" RelativeSize="21.666666666666668" />
-                <LayoutItem Id="DefaultName" RelativeSize="28.333333333333332" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
@@ -131,86 +300,146 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Maintainance_ListView" Caption="MAINTAINANCE" />
-    <ListView Id="Part_ListView" AllowEdit="False" />
-    <ListView Id="PartStock_StockItems_ListView" AllowEdit="True" />
-    <ListView Id="SparePart_ListView" IsGroupPanelVisible="True">
+    <ListView Id="Maintainance_ListView" Caption="MAINTAINANCE">
       <Columns>
-        <ColumnInfo Id="PartNumber" Width="175" />
+        <ColumnInfo Id="MaintainanceDate" Width="153" Index="0" />
+        <ColumnInfo Id="Truck" Width="106" Index="1" />
+        <ColumnInfo Id="Driver" SortIndex="0" SortOrder="Descending" Width="375" Index="2" />
+        <ColumnInfo Id="Executive" Width="152" Index="3" />
+        <ColumnInfo Id="Maintainace" SortIndex="-1" SortOrder="None" Width="339" Index="4" />
+        <ColumnInfo Id="MaintainanceType" Width="150" Index="5" />
+        <ColumnInfo Id="Status" Width="114" Index="6" />
+        <ColumnInfo Id="TotalCost" Width="162" Index="7" />
+      </Columns>
+      <ChartSettings Settings="" />
+    </ListView>
+    <ListView Id="Maintainance_Works_ListView">
+      <Columns>
+        <ColumnInfo Id="Maintainance" Index="-1" Width="202" />
+        <ColumnInfo Id="Description" Width="202" />
+        <ColumnInfo Id="Date" Width="158" Index="1" />
+        <ColumnInfo Id="Approval" Width="150" Index="2" />
+        <ColumnInfo Id="Amount" Width="137" Index="3" />
+        <ColumnInfo Id="TotalTyresPrice" Width="234" />
+        <ColumnInfo Id="TotalServicePartsCost" Width="317" />
+        <ColumnInfo Id="TotalSparePartsCost" Width="301" />
+        <ColumnInfo Id="TotalCost" Width="162" />
+        <ColumnInfo Id="Oid" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="Part_ListView" AllowEdit="False" />
+    <ListView Id="ServicePart_ListView" IsGroupPanelVisible="False" AutoExpandAllGroups="False" IsFooterVisible="True" AllowLink="False" AllowNew="False" DataAccessMode="Server">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" GroupIndex="0" />
+        <ColumnInfo Id="Price" Index="3" />
+        <ColumnInfo Id="Status" Index="4" />
+        <ColumnInfo Id="Supplier" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="SparePart_ListView" IsGroupPanelVisible="False" MasterDetailMode="ListViewOnly" IsFooterVisible="True" AutoExpandAllGroups="False" AllowLink="False" AllowNew="False" AllowUnlink="False" DataAccessMode="Server">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" GroupIndex="0" />
+        <ColumnInfo Id="Price" Index="2" />
+        <ColumnInfo Id="Status" Index="3" />
+        <ColumnInfo Id="Supplier" Index="4" />
+      </Columns>
+      <SplitLayout Direction="Horizontal" />
+    </ListView>
+    <ListView Id="Trip_ChangeHistory_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Width="186" />
+        <ColumnInfo Id="ModifiedOn" Width="169" />
+        <ColumnInfo Id="OperationType" Width="206" />
+        <ColumnInfo Id="PropertyName" Width="202" />
+        <ColumnInfo Id="OldValue" Index="4" Width="143" />
+        <ColumnInfo Id="NewValue" Index="5" Width="155" />
       </Columns>
     </ListView>
     <DetailView Id="Trip_DetailView" Caption="TRIPS">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="73.34235453315291">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="33.01406764441784">
             <LayoutGroup Id="Trip" RelativeSize="100">
-              <LayoutGroup Id="Trip_col1" RelativeSize="49.909909909909906">
-                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="36.94779116465863" Caption="Basic Trip Info" Direction="Vertical" IsNewNode="True">
-                  <LayoutItem Id="Driver" ViewItem="Driver" Index="0" RelativeSize="23.28767123287671" IsNewNode="True" />
-                  <LayoutItem Id="Truck" ViewItem="Truck" Index="1" RelativeSize="17.80821917808219" IsNewNode="True" />
-                  <LayoutItem Id="FromLocation" ViewItem="FromLocation" Index="2" RelativeSize="17.80821917808219" IsNewNode="True" />
-                  <LayoutItem Id="ToLcation" ViewItem="ToLcation" Index="3" RelativeSize="17.80821917808219" IsNewNode="True" />
-                  <LayoutItem Id="TripDate" ViewItem="TripDate" Index="4" RelativeSize="23.28767123287671" IsNewNode="True" />
+              <LayoutGroup Id="Trip_col1" RelativeSize="49.71042471042471">
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="36.318897637795274" Caption="Basic Trip Info" Direction="Vertical" IsNewNode="True">
+                  <LayoutItem Id="Driver" ViewItem="Driver" Index="0" RelativeSize="23.64864864864865" IsNewNode="True" />
+                  <LayoutItem Id="Truck" ViewItem="Truck" Index="1" RelativeSize="17.56756756756757" IsNewNode="True" />
+                  <LayoutItem Id="FromLocation" ViewItem="FromLocation" Index="2" RelativeSize="17.56756756756757" IsNewNode="True" />
+                  <LayoutItem Id="ToLcation" ViewItem="ToLcation" Index="3" RelativeSize="17.56756756756757" IsNewNode="True" />
+                  <LayoutItem Id="TripDate" ViewItem="TripDate" Index="4" RelativeSize="23.64864864864865" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="35.34136546184739" Caption="Haulage info" IsNewNode="True">
-                  <LayoutGroup Id="Autoede668ac-b820-492e-964a-7eda62091e02" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="76.71232876712328" IsNewNode="True">
-                    <LayoutGroup Id="Autoee270ffc-de50-42a4-951a-89d50599e8af" ShowCaption="False" Caption="" Index="0" RelativeSize="49.906890130353815" IsNewNode="True">
-                      <LayoutItem Id="Product" ViewItem="Product" Index="0" RelativeSize="30.357142857142858" IsNewNode="True" />
-                      <LayoutItem Id="Depot" ViewItem="Depot" Index="1" RelativeSize="23.214285714285715" IsNewNode="True" />
-                      <LayoutItem Id="ReceivingDate" ViewItem="ReceivingDate" Index="2" RelativeSize="23.214285714285715" IsNewNode="True" />
-                      <LayoutItem Id="MeterTicket" ViewItem="MeterTicket" Index="3" RelativeSize="23.214285714285715" IsNewNode="True" />
+                <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="42.42125984251968" Caption="Haulage info" IsNewNode="True">
+                  <LayoutGroup Id="Autoede668ac-b820-492e-964a-7eda62091e02" ShowCaption="False" Caption="Autoede668ac-b820-492e-964a-7eda62091e02(12)" Direction="Horizontal" Index="0" RelativeSize="63.829787234042556" IsNewNode="True">
+                    <LayoutGroup Id="Autoee270ffc-de50-42a4-951a-89d50599e8af" ShowCaption="False" Caption="Autoee270ffc-de50-42a4-951a-89d50599e8af(13)" Index="0" RelativeSize="41.02817597627286" IsNewNode="True">
+                      <LayoutItem Id="Product" ViewItem="Product" Index="0" RelativeSize="29.166666666666668" IsNewNode="True" />
+                      <LayoutItem Id="Depot" ViewItem="Depot" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
+                      <LayoutItem Id="ReceivingDate" ViewItem="ReceivingDate" Index="2" RelativeSize="21.666666666666668" IsNewNode="True" />
+                      <LayoutItem Id="MeterTicket" ViewItem="MeterTicket" Index="3" RelativeSize="27.5" IsNewNode="True" />
                     </LayoutGroup>
-                    <LayoutGroup Id="Auto2fb13df4-259e-4ce9-8d72-8dbab89b2ba0" ShowCaption="False" Caption="" Index="1" RelativeSize="50.093109869646185" IsNewNode="True">
-                      <LayoutItem Id="Quantity" ViewItem="Quantity" Index="0" RelativeSize="30.357142857142858" IsNewNode="True" />
-                      <LayoutItem Id="Haulage" ViewItem="Haulage" Index="1" RelativeSize="23.214285714285715" IsNewNode="True" />
-                      <LayoutItem Id="LeavingDate" ViewItem="LeavingDate" Index="2" RelativeSize="23.214285714285715" IsNewNode="True" />
-                      <LayoutItem Id="SMRNumber" ViewItem="SMRNumber" Index="3" RelativeSize="23.214285714285715" IsNewNode="True" />
+                    <LayoutGroup Id="Auto2fb13df4-259e-4ce9-8d72-8dbab89b2ba0" ShowCaption="False" Caption="Auto2fb13df4-259e-4ce9-8d72-8dbab89b2ba0(18)" Index="1" RelativeSize="58.97182402372714" IsNewNode="True">
+                      <LayoutItem Id="Quantity" ViewItem="Quantity" Index="0" RelativeSize="29.166666666666668" IsNewNode="True" />
+                      <LayoutItem Id="Haulage" ViewItem="Haulage" Index="1" RelativeSize="21.666666666666668" IsNewNode="True" />
+                      <LayoutItem Id="LeavingDate" ViewItem="LeavingDate" Index="2" RelativeSize="21.666666666666668" IsNewNode="True" />
+                      <LayoutItem Id="SMRNumber" ViewItem="SMRNumber" Index="3" RelativeSize="27.5" IsNewNode="True" />
                     </LayoutGroup>
                   </LayoutGroup>
-                  <LayoutItem Id="SMRDate" ViewItem="SMRDate" Index="1" RelativeSize="23.28767123287671" IsNewNode="True" />
+                  <LayoutItem Id="SMRDate" ViewItem="SMRDate" Index="1" RelativeSize="13.829787234042554" IsNewNode="True" />
+                  <LayoutGroup Id="Autoc290b3d0-91ce-4e9d-8e0b-33f8808078f0" ShowCaption="False" Caption="Autoc290b3d0-91ce-4e9d-8e0b-33f8808078f0(24)" Direction="Horizontal" Index="2" RelativeSize="22.340425531914892" IsNewNode="True">
+                    <LayoutItem Id="WaybillRate" ViewItem="WaybillRate" Index="0" RelativeSize="49.62926347009392" IsNewNode="True" />
+                    <LayoutItem Id="WaybillDate" ViewItem="WaybillDate" Index="1" RelativeSize="50.37073652990608" IsNewNode="True" />
+                  </LayoutGroup>
                 </LayoutGroup>
                 <LayoutItem Id="SMRNumber" RelativeSize="4.7272727272727275" Index="1" Removed="True" />
-                <LayoutGroup Id="Auto5a31ad6e-9e05-41dc-b143-ba39d7866792" ShowCaption="False" Caption="" Direction="Horizontal" Index="2" RelativeSize="5.220883534136546" IsNewNode="True">
-                  <LayoutItem Id="WaybillRate" ViewItem="WaybillRate" Index="0" RelativeSize="50" IsNewNode="True" />
-                  <LayoutItem Id="WaybillDate" ViewItem="WaybillDate" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutGroup Id="Autoc8bca12a-ce93-4f80-a8e9-2dfa1d2f176e" ShowCaption="False" Caption="Autoc8bca12a-ce93-4f80-a8e9-2dfa1d2f176e(27)" Direction="Horizontal" Index="2" RelativeSize="7.18503937007874" IsNewNode="True">
+                  <LayoutItem Id="Status" ViewItem="Status" Index="0" RelativeSize="49.90291262135922" IsNewNode="True" />
+                  <LayoutItem Id="Purchase" ViewItem="Purchase" Index="1" RelativeSize="50.09708737864078" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutItem Id="SMRDate" RelativeSize="4.7272727272727275" Index="2" Removed="True" />
                 <LayoutItem Id="ToLcation" RelativeSize="5.158730158730159" Index="2" Removed="True" />
                 <LayoutItem Id="WaybillDate" RelativeSize="5.220883534136546" Index="2" Removed="True" />
+                <LayoutGroup Id="Auto167286fd-26ce-4aa5-9516-4bf0732079c0" ShowCaption="False" Caption="Auto167286fd-26ce-4aa5-9516-4bf0732079c0(30)" Direction="Horizontal" Index="3" RelativeSize="7.18503937007874" IsNewNode="True">
+                  <LayoutItem Id="Diesel.DieselClerk" ViewItem="Diesel.DieselClerk" Index="0" RelativeSize="49.90291262135922" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.DieselStation" ViewItem="Diesel.DieselStation" Index="1" RelativeSize="50.09708737864078" IsNewNode="True" />
+                </LayoutGroup>
                 <LayoutItem Id="Depot" RelativeSize="5.158730158730159" Index="3" Removed="True" />
-                <LayoutItem Id="Status" ViewItem="Status" Index="3" RelativeSize="22.48995983935743" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="TotalExpense" RelativeSize="5.220883534136546" Index="3" Removed="True" />
                 <LayoutItem Id="WayBillAmount" ViewItem="WayBillAmount" Index="3" RelativeSize="5.508474576271187" Removed="True" />
+                <LayoutItem Id="Diesel.NONJPStation" ViewItem="Diesel.NONJPStation" Index="4" RelativeSize="6.889763779527559" IsNewNode="True" />
                 <LayoutItem Id="Haulage" RelativeSize="4.7272727272727275" Index="4" Removed="True" />
                 <LayoutItem Id="LoadingFee" RelativeSize="5.220883534136546" Index="4" Removed="True" />
                 <LayoutItem Id="MeterTicket" RelativeSize="4.7272727272727275" Index="4" Removed="True" />
+                <LayoutItem Id="Purchase" ViewItem="Purchase" Index="4" RelativeSize="5.785123966942149" Removed="True" />
                 <LayoutItem Id="TripDate" RelativeSize="5.220883534136546" Index="4" Removed="True" />
                 <LayoutItem Id="LeavingDate" RelativeSize="4.7272727272727275" Index="5" Removed="True" />
                 <LayoutItem Id="ReceivingDate" RelativeSize="4.7272727272727275" Index="5" Removed="True" />
+                <LayoutItem Id="WaybillRate" Index="5" RelativeSize="23.51219512195122" Removed="True" />
                 <LayoutItem Id="Truck" ViewItem="Truck" Index="11" RelativeSize="5.158730158730159" Removed="True" />
                 <LayoutItem Id="Driver" RelativeSize="5.158730158730159" Removed="True" />
                 <LayoutItem Id="FromLocation" RelativeSize="5.158730158730159" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Trip_col2" RelativeSize="50.090090090090094">
-                <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="47.389558232931726" Caption="Finance" IsNewNode="True">
-                  <LayoutItem Id="WayBillAmount" ViewItem="WayBillAmount" Index="0" RelativeSize="17.171717171717173" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.DieselCost" ViewItem="Diesel.DieselCost" Index="1" RelativeSize="13.131313131313131" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.TripAlowance" ViewItem="Diesel.TripAlowance" Index="2" RelativeSize="13.131313131313131" IsNewNode="True" />
-                  <LayoutItem Id="TotalMaintainaceCost" ViewItem="TotalMaintainaceCost" Index="3" RelativeSize="13.131313131313131" IsNewNode="True" />
-                  <LayoutItem Id="LoadingFee" ViewItem="LoadingFee" Index="4" RelativeSize="13.131313131313131" IsNewNode="True" />
-                  <LayoutItem Id="TotalExpense" ViewItem="TotalExpense" Index="5" RelativeSize="13.131313131313131" IsNewNode="True" />
-                  <LayoutItem Id="TripBalance" ViewItem="TripBalance" Index="6" RelativeSize="17.171717171717173" IsNewNode="True" />
+              <LayoutGroup Id="Trip_col2" RelativeSize="50.28957528957529">
+                <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="46.55511811023622" Caption="Finance" IsNewNode="True">
+                  <LayoutItem Id="WayBillAmount" ViewItem="WayBillAmount" Index="0" RelativeSize="17.5" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.DieselCost" ViewItem="Diesel.DieselCost" Index="1" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.TripAlowance" ViewItem="Diesel.TripAlowance" Index="2" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="TotalMaintainaceCost" ViewItem="TotalMaintainaceCost" Index="3" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="LoadingFee" ViewItem="LoadingFee" Index="4" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="TotalExpense" ViewItem="TotalExpense" Index="5" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="TripBalance" ViewItem="TripBalance" Index="6" RelativeSize="17.5" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="52.610441767068274" Caption="Diesel Details" IsNewNode="True">
-                  <LayoutItem Id="Diesel.Clerk" ViewItem="Diesel.Clerk" Index="0" RelativeSize="15.178571428571429" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.Trip" ViewItem="Diesel.Trip" Index="1" RelativeSize="11.607142857142858" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.Quantity" ViewItem="Diesel.Quantity" Index="2" RelativeSize="11.607142857142858" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.UnitPrice" ViewItem="Diesel.UnitPrice" Index="3" RelativeSize="11.607142857142858" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.TotalCost" ViewItem="Diesel.TotalCost" Index="4" RelativeSize="11.607142857142858" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.Date" ViewItem="Diesel.Date" Index="5" RelativeSize="11.607142857142858" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.Approval" ViewItem="Diesel.Approval" Index="6" RelativeSize="11.607142857142858" IsNewNode="True" />
-                  <LayoutItem Id="Diesel.Station" ViewItem="Diesel.Station" Index="7" RelativeSize="15.178571428571429" IsNewNode="True" />
+                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="53.44488188976378" Caption="Diesel Details" IsNewNode="True">
+                  <LayoutItem Id="Diesel.Clerk" ViewItem="Diesel.Clerk" Index="0" RelativeSize="18.72340425531915" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Trip" ViewItem="Diesel.Trip" Index="1" RelativeSize="11.063829787234043" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Quantity" ViewItem="Diesel.Quantity" Index="2" RelativeSize="11.063829787234043" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.UnitPrice" ViewItem="Diesel.UnitPrice" Index="3" RelativeSize="11.063829787234043" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.TotalCost" ViewItem="Diesel.TotalCost" Index="4" RelativeSize="11.063829787234043" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Date" ViewItem="Diesel.Date" Index="5" RelativeSize="11.063829787234043" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Approval" ViewItem="Diesel.Approval" Index="6" RelativeSize="11.063829787234043" IsNewNode="True" />
+                  <LayoutItem Id="Diesel.Station" ViewItem="Diesel.Station" Index="7" RelativeSize="14.893617021276595" IsNewNode="True" />
                 </LayoutGroup>
+                <LayoutItem Id="Diesel.DieselClerk" Index="2" RelativeSize="4.958677685950414" Removed="True" />
+                <LayoutItem Id="Diesel.DieselStation" Index="2" RelativeSize="4.724409448818897" Removed="True" />
+                <LayoutItem Id="Diesel.NONJPStation" Index="2" RelativeSize="4.724409448818897" Removed="True" />
                 <LayoutItem Id="TotalMaintainaceCost" RelativeSize="5.220883534136546" Index="2" Removed="True" />
                 <LayoutItem Id="TripDisplayName" RelativeSize="6.488549618320611" Index="3" Removed="True" />
                 <LayoutItem Id="Diesel.Approval" RelativeSize="5.158730158730159" Index="6" Removed="True" />
@@ -225,26 +454,159 @@
                 <LayoutItem Id="Product" RelativeSize="4.7272727272727275" Removed="True" />
                 <LayoutItem Id="Quantity" RelativeSize="4.513888888888889" Removed="True" />
                 <LayoutItem Id="TripBalance" RelativeSize="4.961832061068702" Removed="True" />
-                <LayoutItem Id="WaybillRate" RelativeSize="6.827309236947791" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="26.65764546684709">
-            <LayoutGroup Id="Diesel.ChangeHistory" RelativeSize="100">
-              <LayoutItem Id="Diesel.ChangeHistory" RelativeSize="100" />
-            </LayoutGroup>
-            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+          <TabbedGroup Id="Tabs" RelativeSize="66.98593235558216">
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100" Index="0">
               <LayoutItem Id="ChangeHistory" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Diesel.ChangeHistory" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Diesel.ChangeHistory" RelativeSize="100" />
             </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Trip_ListView" Caption="TRIPS" />
+    <ListView Id="Trip_ListView" Caption="TRIPS">
+      <Columns>
+        <ColumnInfo Id="TripDate" Width="158" Index="0" />
+        <ColumnInfo Id="Truck" Width="106" Index="1" />
+        <ColumnInfo Id="Driver" Width="206" Index="2" />
+        <ColumnInfo Id="Depot" Width="158" Index="3" />
+        <ColumnInfo Id="FromLocation" Width="140" Index="4" />
+        <ColumnInfo Id="ToLcation" Width="154" Index="5" />
+        <ColumnInfo Id="Product" Width="134" Index="6" />
+        <ColumnInfo Id="Quantity" Width="91" Index="7" />
+        <ColumnInfo Id="Status" Width="114" Index="8" />
+        <ColumnInfo Id="Haulage" Width="156" Index="9" />
+        <ColumnInfo Id="Diesel" Width="114" Index="10" />
+        <ColumnInfo Id="TotalExpense" Width="138" Index="11" />
+        <ColumnInfo Id="TripBalance" Width="133" Index="12" />
+        <ColumnInfo Id="Purchase" Width="147" Index="13" />
+      </Columns>
+    </ListView>
     <DetailView Id="Truck_DetailView" Caption="TRUCKS" />
-    <ListView Id="Truck_ListView" Caption="TRUCKS" />
-    <ListView Id="Tyre_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" AllowUnlink="True" IsGroupPanelVisible="True" />
-    <ListView Id="TyreStock_Tyres_ListView" AllowEdit="True" AllowLink="False" AllowNew="False" AllowUnlink="False" IsGroupPanelVisible="True" />
+    <ListView Id="Truck_ListView" Caption="TRUCKS">
+      <Columns>
+        <ColumnInfo Id="RegistrationNumber" Width="218" />
+        <ColumnInfo Id="Model" Width="107" Index="1" />
+        <ColumnInfo Id="ChasisNumber" Width="174" Index="2" />
+        <ColumnInfo Id="TruckStatus" Width="123" />
+        <ColumnInfo Id="TruckOwner" Width="173" />
+        <ColumnInfo Id="CurrentMaintainanceTaskCost" Index="5" Width="149" />
+        <ColumnInfo Id="CurrentTrip" Width="283" />
+        <ColumnInfo Id="CurrentMaintainance" Index="6" Width="370" />
+      </Columns>
+    </ListView>
+    <ListView Id="Truck_Maintainance_ListView">
+      <Columns>
+        <ColumnInfo Id="MaintainanceType" Width="241" Index="1" />
+        <ColumnInfo Id="Status" Width="103" Index="2" />
+        <ColumnInfo Id="TotalCost" Width="145" Index="3" />
+        <ColumnInfo Id="Driver" Width="102" Index="5" />
+        <ColumnInfo Id="MaintainanceDate" Width="239" Index="6" />
+      </Columns>
+    </ListView>
+    <ListView Id="Truck_Trips_ListView">
+      <Columns>
+        <ColumnInfo Id="FromLocation" Width="222" />
+        <ColumnInfo Id="ToLcation" Width="169" />
+        <ColumnInfo Id="Depot" Width="130" />
+        <ColumnInfo Id="Status" Width="128" />
+        <ColumnInfo Id="Haulage" Width="175" />
+        <ColumnInfo Id="Driver" Width="125" />
+        <ColumnInfo Id="Diesel" Width="127" Index="6" />
+        <ColumnInfo Id="TotalExpense" Width="156" Index="7" />
+        <ColumnInfo Id="TripBalance" Width="148" Index="8" />
+        <ColumnInfo Id="Product" Width="151" Index="9" />
+        <ColumnInfo Id="Quantity" Width="103" Index="10" />
+        <ColumnInfo Id="TripDate" Width="168" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="Truck_Tyres_ListView">
+      <Columns>
+        <ColumnInfo Id="BrandName" Width="162" />
+        <ColumnInfo Id="SerialNumber" Width="182" />
+        <ColumnInfo Id="Code" Width="94" />
+        <ColumnInfo Id="Status" Width="103" />
+        <ColumnInfo Id="Work" Width="94" />
+      </Columns>
+    </ListView>
+    <ListView Id="Tyre_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" AllowUnlink="False" IsGroupPanelVisible="False" IsFooterVisible="True" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="BrandName" Width="162" />
+        <ColumnInfo Id="SerialNumber" Width="182" />
+        <ColumnInfo Id="Code" Width="94" />
+        <ColumnInfo Id="Status" Width="103" />
+        <ColumnInfo Id="CurrentTruck" Width="183" />
+        <ColumnInfo Id="Work" Width="94" />
+      </Columns>
+    </ListView>
+    <ListView Id="TyreStock_Tyres_ListView" AllowEdit="True" AllowLink="False" AllowNew="False" AllowUnlink="False" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="BrandName" Width="162" />
+        <ColumnInfo Id="SerialNumber" Width="182" />
+        <ColumnInfo Id="Code" Width="94" />
+        <ColumnInfo Id="Status" Width="103" />
+        <ColumnInfo Id="CurrentTruck" Width="183" />
+        <ColumnInfo Id="Work" Width="94" />
+      </Columns>
+    </ListView>
+    <ListView Id="TyreTransaction_Tyres_ListView">
+      <Columns>
+        <ColumnInfo Id="BrandName" Width="196" />
+        <ColumnInfo Id="SerialNumber" Width="220" />
+        <ColumnInfo Id="Code" Width="118" />
+        <ColumnInfo Id="Status" Width="128" />
+        <ColumnInfo Id="CurrentTruck" Width="226" />
+        <ColumnInfo Id="Work" Width="118" />
+      </Columns>
+    </ListView>
     <DetailView Id="Work_DetailView" ImageName="ModelEditor_Application" />
+    <ListView Id="Work_ListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="182" />
+        <ColumnInfo Id="Maintainance" Width="182" />
+        <ColumnInfo Id="Amount" Width="124" />
+        <ColumnInfo Id="Date" Width="138" />
+        <ColumnInfo Id="TotalServicePartsCost" Width="286" Index="4" />
+        <ColumnInfo Id="TotalSparePartsCost" Width="270" Index="5" />
+        <ColumnInfo Id="TotalCost" Width="145" Index="6" />
+        <ColumnInfo Id="Approval" Width="133" Index="7" />
+      </Columns>
+    </ListView>
+    <ListView Id="Work_ServiceParts_ListView" AllowDelete="False" AllowLink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Name" Width="138" />
+        <ColumnInfo Id="PartNumber" Width="193" />
+        <ColumnInfo Id="Price" Index="2" Width="99" />
+        <ColumnInfo Id="Status" Index="3" Width="114" />
+        <ColumnInfo Id="Supplier" Index="4" Width="140" />
+        <ColumnInfo Id="Date" Index="5" Width="158" />
+      </Columns>
+    </ListView>
+    <ListView Id="Work_SpareParts_ListView" AllowDelete="False" AllowLink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Work" Index="-1" Width="106" />
+        <ColumnInfo Id="Name" Width="138" />
+        <ColumnInfo Id="PartNumber" Width="193" />
+        <ColumnInfo Id="Price" Index="2" Width="99" />
+        <ColumnInfo Id="Status" Index="3" Width="114" />
+        <ColumnInfo Id="Supplier" Index="4" Width="140" />
+        <ColumnInfo Id="Date" Index="5" Width="158" />
+        <ColumnInfo Id="Oid" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="Work_Tyres_ListView" AllowDelete="False" AllowLink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="BrandName" Width="178" />
+        <ColumnInfo Id="SerialNumber" Width="200" />
+        <ColumnInfo Id="Code" Width="105" />
+        <ColumnInfo Id="Price" Width="99" Index="3" />
+        <ColumnInfo Id="Status" Width="114" Index="4" />
+        <ColumnInfo Id="CurrentTruck" Width="201" Index="5" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

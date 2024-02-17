@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using JengrePetroleum.Module.BusinessObjects.Marketting;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -23,11 +24,13 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
     [ListViewFilter("Cancelled", "[Status] = 'Cancelled'", true, Index = 3)]
     [ListViewFilter("Pending", "[Status] = 'Pending'", true, Index = 4)]
     [ObjectCaptionFormat("{0:TripDisplayName}")]
+    [Appearance("TripCompleted", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'Completed'", Enabled = false)]
     [Appearance("InProgress", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'InProgress'", FontColor = "Blue", FontStyle = System.Drawing.FontStyle.Bold)]
     [Appearance("Pending", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'Pending'", FontColor = "Red", FontStyle = System.Drawing.FontStyle.Bold)]
     [Appearance("Completed", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "Status = 'Completed'", FontColor = "Green", FontStyle = System.Drawing.FontStyle.Bold)]
     public class Trip : BaseObject
     {
+        Purchases purchase;
         Diesel diesel;
         double waybillRate;
         Product product;
@@ -56,15 +59,22 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             base.AfterConstruction();
             TripDate = DateTime.Now;
 
-            if (Truck != null)
-            {
-                Truck.TruckStatus = TruckStatus.OnTrip;
-            }
-            if (Driver != null)
-            {
-                Driver.DriverStatus = DriverStatus.OnTrip;
-            }
+        }
 
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+
+
+            if (Truck != null && Driver != null)
+            {
+                Session.GetObjectByKey<Truck>(Truck.Oid).TruckStatus = TruckStatus.OnTrip;
+                Session.GetObjectByKey<Driver>(Driver.Oid).DriverStatus = DriverStatus.OnTrip;
+      
+            }
+          
+
+            Status = TripStatus.InProgress;
         }
 
         [XafDisplayName("SMR/MTR NO.")]
@@ -83,6 +93,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(SMRDate), ref smrdate, value);
         }
 
+        //[RuleRequiredField]
         [XafDisplayName("FROM")]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string FromLocation
@@ -91,6 +102,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(FromLocation), ref fromLocation, value);
         }
 
+        //[RuleRequiredField]
         [XafDisplayName("TO")]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string ToLcation
@@ -146,6 +158,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
 
         [RuleRequiredField]
         [Association("Vehicle-Trips")]
+        //[DataSourceCriteria("TruckStatus = 'Available' AND MaintenanceStatus = 'Completed'")]
         [DataSourceCriteria("TruckStatus = 'Available'")]
         public Truck Truck
         {
@@ -154,10 +167,20 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         }
 
         [RuleRequiredField]
+        [DataSourceCriteria("DriverStatus = 'Available'")]
         public Driver Driver
         {
             get => driver;
             set => SetPropertyValue(nameof(Driver), ref driver, value);
+        }
+
+
+        
+        [Association("Purchases-Trips")]
+        public Purchases Purchase
+        {
+            get => purchase;
+            set => SetPropertyValue(nameof(Purchase), ref purchase, value);
         }
 
         [XafDisplayName("Expense")]
@@ -264,6 +287,8 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get { return Convert.ToString(EvaluateAlias(nameof(TripDisplayName))); }
         }
 
+        //appearance for admin only
+        [Appearance("AdminOnly", AppearanceItemType = "ViewItem", TargetItems = "*", Criteria = "IsCurrentUserInRole('Admin')", Enabled = true)]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = false)]
         public XPCollection<AuditDataItemPersistent> ChangeHistory
         {
@@ -280,7 +305,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             status = TripStatus.Completed;
             Truck.TruckStatus = TruckStatus.Available;
             Driver.DriverStatus = DriverStatus.Available;
-            Truck.CurrentMaintainance.History = MaintainanceHistory.History;
+            
         }
 
 

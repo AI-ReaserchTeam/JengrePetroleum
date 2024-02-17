@@ -19,7 +19,7 @@ using System.Text;
 namespace JengerePetroleum.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    [DefaultProperty("FullName")]
+    [DefaultProperty(nameof(UserName))]
 	[NavigationItem("Employees")]
 	public class Employee : EmployeeBase
 	{

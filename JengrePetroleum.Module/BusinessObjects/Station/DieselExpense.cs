@@ -27,11 +27,11 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
 
 
         FillingStation station;
-        decimal tripAllowance;
+        decimal? tripAllowance;
         string truck;
         string driver;
-        double price;
-        double diesel;
+        double? price;
+        double? diesel;
         DateTime date;
         Trip trip;
 
@@ -42,21 +42,21 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
         }
 
 
-        public double Diesel
+        public double? Diesel
         {
             get => diesel;
             set => SetPropertyValue(nameof(Diesel), ref diesel, value);
         }
 
 
-        public double Price
+        public double? Price
         {
             get => price;
             set => SetPropertyValue(nameof(Price), ref price, value);
         }
 
-        
-        public decimal TripAllowance
+        [DevExpress.Xpo.DisplayName("Allowance")]
+        public decimal? TripAllowance
         {
             get => tripAllowance;
             set => SetPropertyValue(nameof(TripAllowance), ref tripAllowance, value);

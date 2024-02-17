@@ -14,8 +14,8 @@ using System.Text;
 
 namespace JengrePetroleum.Module.BusinessObjects.Station
 {
-    //[NavigationItem("Fuel Stations")]
-    //[DefaultClassOptions]
+    [NavigationItem("Fuel Stations")]
+    [DefaultClassOptions]
    
     public class DailyRecord : BaseObject
     { 
@@ -26,59 +26,115 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+            date = DateTime.Now;
+            
         }
-       
 
-        decimal amount;
-        double litresSold;
-        Pump pump;
+
+        double price;
+        int dipping;
         DateTime date;
-        double closingReading;
-        double openningReading;
+        double closingTotalizer;
+        double openingTotalizer;
+        double closingLitres;
+        double openingLitres;
+        decimal closingMoney;
+        decimal openingMoney;
 
-        public double OpenningReading
+        [XafDisplayName("O-MONEY")]
+        public decimal OpeningMoney
         {
-            get => openningReading;
-            set => SetPropertyValue(nameof(OpenningReading), ref openningReading, value);
+            get => openingMoney;
+            set => SetPropertyValue(nameof(OpeningMoney), ref openingMoney, value);
+        }
+
+        [XafDisplayName("C-MONEY")]
+        public decimal ClosingMoney
+        {
+            get => closingMoney;
+            set => SetPropertyValue(nameof(ClosingMoney), ref closingMoney, value);
         }
 
 
+        [XafDisplayName("O-LITRES")]
 
-        public double ClosingReading
+        public double OpeningLitres
         {
-            get => closingReading;
-            set => SetPropertyValue(nameof(ClosingReading), ref closingReading, value);
+            get => openingLitres;
+            set => SetPropertyValue(nameof(OpeningLitres), ref openingLitres, value);
         }
 
+        
+        //[RuleCriteria("OpeningLitresGreaterThanClosingLitres", DefaultContexts.Save, "Opening litres cannot be greater than closing litres", UsedProperties = "OpeningLitres,ClosingLitres")]
+        [XafDisplayName("C-LITRES")]
+        public double ClosingLitres
+        {
+            get => closingLitres;
+            set => SetPropertyValue(nameof(ClosingLitres), ref closingLitres, value);
+        }
 
+        [XafDisplayName("O-LITRES(A)")]
+        public double OpeningTotalizer
+        {
+            get => openingTotalizer;
+            set => SetPropertyValue(nameof(OpeningTotalizer), ref openingTotalizer, value);
+        }
 
+        //[RuleFromBoolProperty("OpeningTotalizerGreaterThanClosingTotalizer", DefaultContexts.Save, "Opening totalizer cannot be greater than closing totalizer", UsedProperties = "OpeningTotalizer,ClosingTotalizer")]
+        [XafDisplayName("C-LITRES(A)")]
+        public double ClosingTotalizer
+        {
+            get => closingTotalizer;
+            set => SetPropertyValue(nameof(ClosingTotalizer), ref closingTotalizer, value);
+        }
+
+        [VisibleInListView(false)]
         public DateTime Date
         {
             get => date;
             //set => SetPropertyValue(nameof(Date), ref date, value);
         }
 
-
-        [Association("Pump-DailyRecords")]
-        public Pump Pump
+        [XafDisplayName("PRICE/LTR)")]
+        public double Price
         {
-            get => pump;
-            set => SetPropertyValue(nameof(Pump), ref pump, value);
+            get => price;
+            set => SetPropertyValue(nameof(Price), ref price, value);
+        }
+
+   
+
+        [XafDisplayName("DIP")]
+        public int Dipping
+        {
+            get => dipping;
+            set => SetPropertyValue(nameof(Dipping), ref dipping, value);
+        }
+        [XafDisplayName("TOTAL(A)")]
+        [PersistentAlias("ClosingTotalizer - OpeningTotalizer")]
+        public double TotalizerAmount
+        {
+            get { return Convert.ToDouble(EvaluateAlias(nameof(TotalizerAmount))); }
         }
 
 
-        public double LitresSold
+
+        [XafDisplayName("LITRES")]
+        [PersistentAlias("ClosingLitres - OpeningLitres")]
+        public double Litres
         {
-            get => litresSold;
-            set => SetPropertyValue(nameof(LitresSold), ref litresSold, value);
+            get { return Convert.ToDouble(EvaluateAlias(nameof(Litres))); }
+        }
+        [XafDisplayName("SALES")]
+        [PersistentAlias("ClosingMoney - OpeningMoney")]
+        public decimal Sales
+        {
+            get { return Convert.ToDecimal(EvaluateAlias(nameof(Sales))); }
         }
 
+        
+        
 
-        public decimal Amount
-        {
-            get => amount;
-            set => SetPropertyValue(nameof(Amount), ref amount, value);
-        }
 
 
 

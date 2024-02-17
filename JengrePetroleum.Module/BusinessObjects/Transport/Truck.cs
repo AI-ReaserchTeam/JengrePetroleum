@@ -1,5 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -8,10 +9,11 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.XtraPrinting;
-using JengrePetroleum.Module.BusinessObjects.Store;
+using JengrePetroleum.Module.BusinessObjects.Store.Tyres;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -27,6 +29,9 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
 	[ListViewFilter("On Trip", "[TruckStatus] = 'OnTrip'", true, Index = 2)]
 	[ListViewFilter("Under Maintenance", "[TruckStatus] = 'UnderMaintenance'", true, Index = 3)]
 	[ListViewFilter("All", "", true, Index = 0)]
+    [Appearance("Undermaintainace", TargetItems = "*", Criteria = "TruckStatus == 'UnderMaintenance'",FontColor = "Red", FontStyle = FontStyle.Bold)]
+    [Appearance("Ontrip", TargetItems = "*", Criteria = "TruckStatus == 'OnTrip'", FontColor = "Blue", FontStyle = FontStyle.Bold)]
+    [Appearance("available", TargetItems = "*", Criteria = "TruckStatus == 'Available'", FontColor = "Green", FontStyle = FontStyle.Bold)]
 
     public class Truck : BaseObject
     {
@@ -42,9 +47,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
        
         }
 
-
-
-   
+        string chasisNumber;
         TruckOwner vehicleOwner;
         TruckStatus truckStatus;
         string model;
@@ -59,6 +62,15 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(RegistrationNumber), ref registrationNumber, value);
         }
 
+        [RuleUniqueValue]
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string ChasisNumber
+         {
+         	get => chasisNumber;
+         	set => SetPropertyValue(nameof(ChasisNumber), ref chasisNumber, value);
+         }
+
+
         [RuleRequiredField]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Model
@@ -67,14 +79,14 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(Model), ref model, value);
         }
 
-     
+
         public TruckStatus TruckStatus
         {
             get => truckStatus;
             set => SetPropertyValue(nameof(TruckStatus), ref truckStatus, value);
         }
 
-
+      
         public TruckOwner TruckOwner
         {
             get => vehicleOwner;
@@ -114,6 +126,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get => Maintainance.FirstOrDefault(t => t.History == MaintainanceHistory.Current);
         }
 
+        [DevExpress.Xpo.DisplayName("CM COST")]
         [VisibleInListView(false)]
         public decimal CurrentMaintainanceTaskCost
         {

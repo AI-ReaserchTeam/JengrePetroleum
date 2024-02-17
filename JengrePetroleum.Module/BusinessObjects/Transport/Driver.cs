@@ -12,7 +12,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
     [DefaultClassOptions]
     [NavigationItem("Employees")]
     [ImageName("BO_Customer")]
-	[DefaultProperty(nameof(FullName))]
+	[DefaultProperty(nameof(UserName))]
 	public class Driver : EmployeeBase
     {
       
@@ -23,11 +23,10 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            Position = BusinessObjects.Position.Driver;
+            Position = BusinessObjects.Position.DRIVER;
             Department = Department.TRANSPORTATION;
 
         }
-
 
 
         DriverStatus driverstatus;

@@ -56,7 +56,7 @@ namespace JengrePetroleum.Blazor.Server.Controllers
         {
             base.OnActivated();
             var user = SecuritySystem.CurrentUser as Employee;
-            DieselRequestAction.Active.SetItemValue("StationManager", (user.Position == Position.StationManager));
+            DieselRequestAction.Active.SetItemValue("StationManager", (user.Position == Position.STATIONMANAGER));
 
         }
         protected override void OnViewControlsCreated()

@@ -20,14 +20,14 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
         }
        
 
-        [Association("Pump-DailyRecords")]
-        public XPCollection<DailyRecord> DailyRecords
-        {
-            get
-            {
-                return GetCollection<DailyRecord>(nameof(DailyRecords));
-            }
-        }
+        //[Association("Pump-DailyRecords")]
+        //public XPCollection<DailyRecord> DailyRecords
+        //{
+        //    get
+        //    {
+        //        return GetCollection<DailyRecord>(nameof(DailyRecords));
+        //    }
+        //}
 
 
         Tank tank;

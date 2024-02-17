@@ -69,7 +69,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Station
             set => SetPropertyValue(nameof(Location), ref location, value);
         }
 
-        [DataSourceCriteria("Position == 2")]
+        [DataSourceCriteria("Position == 'STATIONMANAGER'")]
         public Employee Manager
         {
             get => manager;

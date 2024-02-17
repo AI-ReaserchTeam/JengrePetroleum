@@ -1,5 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -18,11 +19,12 @@ using AggregatedAttribute = DevExpress.Xpo.AggregatedAttribute;
 namespace JengrePetroleum.Module.BusinessObjects.Transport
 {
     [DefaultClassOptions]
-    [DefaultProperty("DefaultName")]
+    [DefaultProperty(nameof(Maintainace))]
     [NavigationItem("Transportation")]
-    //[ImageName("BO_Contact")]
+    [Appearance("DisableFields", TargetItems = "*", Criteria = "Status == 'Completed'", Enabled = false)]
+ 
     public class Maintainance : BaseObject
-    { 
+    {
         public Maintainance(Session session)
             : base(session)
         {
@@ -30,14 +32,24 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-			History = MaintainanceHistory.Current;
+            History = MaintainanceHistory.Current;
+            Status = MaintenanceTaskStatus.InProgress;
             maintainanceDate = DateTime.Now;
+
+
+        }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if (Session.IsNewObject(this) && this.Truck is not null)
+            {
+                Session.GetObjectByKey<Truck>(Truck.Oid).TruckStatus = TruckStatus.UnderMaintenance;
+            }
         }
 
 
-
         Driver driver;
-        Employee manager;
+        Employee supervisor;
         MaintainanceHistory history;
         MaintenanceTaskStatus maintenanceTaskStatus;
         MaintainanceType maintainanceType;
@@ -47,14 +59,15 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
 
 
 
-
+        [RuleRequiredField]
+        [DevExpress.Xpo.DisplayName("Date")]
         public DateTime MaintainanceDate
         {
             get => maintainanceDate;
-           // set => SetPropertyValue(nameof(MaintainanceDate), ref maintainanceDate, value);
+            set => SetPropertyValue(nameof(MaintainanceDate), ref maintainanceDate, value);
         }
 
-
+        [DevExpress.Xpo.DisplayName("Type")]
         public MaintainanceType MaintainanceType
         {
             get => maintainanceType;
@@ -68,7 +81,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(Status), ref maintenanceTaskStatus, value);
         }
 
-        [PersistentAlias("Works.Sum(Amount)")]
+        [PersistentAlias("Works.Sum(TotalCost)")]
         public decimal TotalCost
         {
             get { return Convert.ToDecimal(EvaluateAlias(nameof(TotalCost))); }
@@ -85,6 +98,8 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             }
         }
 
+        [DataSourceCriteria("TruckStatus == 'Available'")]
+        [RuleRequiredField(CustomMessageTemplate = "Please select a Truck")]
         [Association("Truck-Maintainance")]
         public Truck Truck
         {
@@ -99,27 +114,29 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             set => SetPropertyValue(nameof(History), ref history, value);
         }
 
-        [DataSourceCriteria("Position == 3")]
+        [RuleRequiredField(CustomMessageTemplate ="Kindly Select a Maintainance Executive!")]
+        [DataSourceCriteria("Position == 'MAINTAINANCEEXECUTIVE'")]
         [Association("Employee-MaintainanceManager")]
-        public Employee Manager
+        public Employee Executive
         {
-            get => manager;
-            set => SetPropertyValue(nameof(Manager), ref manager, value);
+            get => supervisor;
+            set => SetPropertyValue(nameof(Executive), ref supervisor, value);
         }
 
+        [RuleRequiredField(CustomMessageTemplate = "Please Select a Driver!")]
         [Association("Employee-MaintainanceDriver")]
-        [DataSourceCriteria("Position == 11")]
+        [DataSourceCriteria("Position == 'DRIVER' AND DriverStatus == 'Available'")]
         public Driver Driver
         {
             get => driver;
             set => SetPropertyValue(nameof(Driver), ref driver, value);
         }
 
-        
-        [PersistentAlias("Concat(Truck.RegistrationNumber, ' ',[Driver.UserName], ' ', [Manager.UserName])")]
-        public string DefaultName
+
+        [PersistentAlias("Concat(Truck.RegistrationNumber, ' ',[Driver.UserName], ' ', [Executive.UserName])")]
+        public string Maintainace
         {
-            get { return Convert.ToString(EvaluateAlias(nameof(DefaultName))); }
+            get { return Convert.ToString(EvaluateAlias(nameof(Maintainace))); }
         }
 
         [CollectionOperationSet(AllowAdd = false, AllowRemove = false)]
@@ -128,13 +145,20 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get
             {
                 changeHistory ??= AuditedObjectWeakReference.GetAuditTrail(Session, this);
-                return changeHistory; 
+                return changeHistory;
             }
+        }
+
+        [Action(Caption = "Complete", ConfirmationMessage = "Are you sure to complete this maintainace?", ImageName = "Action_Grant", AutoCommit = true)]
+        public void Complete()
+        {
+            Status = MaintenanceTaskStatus.Completed;
+            History = MaintainanceHistory.History;
         }
 
     }
 
-	public enum MaintainanceType { GarageWork, OutsideWork }
+    public enum MaintainanceType { GarageWork, OutsideWork }
     public enum MaintenanceTaskStatus { Pending, InProgress, Completed }
     public enum MaintainanceHistory { Current, History }
 }

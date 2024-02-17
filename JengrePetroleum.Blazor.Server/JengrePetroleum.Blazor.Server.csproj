@@ -25,7 +25,9 @@
     <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="23.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="23.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="23.1.5" />
+    <PackageReference Include="ElectronNET.API" Version="23.6.1" />
     <PackageReference Include="Microsoft.Azure.SignalR" Version="1.21.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20">
       <PrivateAssets>all</PrivateAssets>
@@ -34,5 +36,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JengrePetroleum.Module\JengrePetroleum.Module.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="electron.manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

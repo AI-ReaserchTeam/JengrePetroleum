@@ -7,6 +7,9 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using JengrePetroleum.Module.BusinessObjects.Store.ServiceParts;
+using JengrePetroleum.Module.BusinessObjects.Store.SpareParts;
+using JengrePetroleum.Module.BusinessObjects.Store.Tyres;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,7 +50,8 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
         }
 
 
-        PartStock sparePartStock;
+        ServicePartStock servicePartStock;
+        SparePartStock sparePartStock;
         TyreStock tyreStock;
         PaymentType paymentType;
         string account;
@@ -77,6 +81,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
             set => SetPropertyValue(nameof(Bank), ref bank, value);
         }
 
+        [ModelDefault("EditMask", "0000000000")]
         [Appearance("HideAccount", Criteria = "PaymentType = 0", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Account
@@ -102,11 +107,21 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
 
         [VisibleInListView(false)]
         [Association("SparePartStock-Payments")]
-        public PartStock SparePartStock
+        public SparePartStock SparePartStock
         {
             get => sparePartStock;
             set => SetPropertyValue(nameof(SparePartStock), ref sparePartStock, value);
         }
+
+
+
+        [Association("ServicePartStock-Payments")]
+        public ServicePartStock ServicePartStock
+        {
+            get => servicePartStock;
+            set => SetPropertyValue(nameof(ServicePartStock), ref servicePartStock, value);
+        }
+
 
 
     }

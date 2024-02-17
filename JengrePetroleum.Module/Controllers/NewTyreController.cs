@@ -11,7 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.XtraSpreadsheet.Model.CopyOperation;
-using JengrePetroleum.Module.BusinessObjects.Store;
+using JengrePetroleum.Module.BusinessObjects.Store.Tyres;
 using JengrePetroleum.Module.BusinessObjects.Transport;
 using System;
 using System.Collections.Generic;
@@ -61,7 +61,6 @@ namespace JengrePetroleum.Module.Controllers
 
             if (transaction.Truck != null && transaction.Driver != null && transaction.Tyres != null)
             {
-               
              
                 foreach (Tyre tyre in transaction.Tyres)
                 {

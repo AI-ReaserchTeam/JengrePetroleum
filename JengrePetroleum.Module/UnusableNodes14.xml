@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="Driver_Maintainance_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="DefaultName" Width="210" />
+        <ColumnInfo Id="Supervisor" Width="150" />
+      </Columns>
+    </ListView>
+    <ListView Id="Employee_Maintainace_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="DefaultName" Width="210" />
+        <ColumnInfo Id="Supervisor" Index="7" Width="150" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Maintainance_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Maintainance">
+              <LayoutGroup Id="Maintainance_col2">
+                <LayoutItem Id="DefaultName" RelativeSize="28.333333333333332" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Maintainance_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="DefaultName" Width="210" />
+        <ColumnInfo Id="Supervisor" Width="150" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Trip_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Trip">
+              <LayoutGroup Id="Trip_col2">
+                <LayoutGroup Id="Item2">
+                  <LayoutItem Id="Diesel.Clerk" ViewItem="Diesel.Clerk" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Truck_Maintainance_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="DefaultName" Width="210" />
+        <ColumnInfo Id="Supervisor" Width="150" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

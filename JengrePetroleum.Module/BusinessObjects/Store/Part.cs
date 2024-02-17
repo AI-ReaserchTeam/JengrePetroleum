@@ -27,6 +27,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
             base.AfterConstruction();
         }
 
+        Status status;
         Supplier supplier;
         PartName name;
         decimal price;
@@ -65,6 +66,13 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
             set => SetPropertyValue(nameof(Supplier), ref supplier, value);
         }
 
+        
+        public Status Status
+        {
+            get => status;
+            set => SetPropertyValue(nameof(Status), ref status, value);
+        }
+
 
         [CollectionOperationSet(AllowAdd = false, AllowRemove = false)]
         public XPCollection<AuditDataItemPersistent> ChangeHistory
@@ -76,6 +84,14 @@ namespace JengrePetroleum.Module.BusinessObjects.Store
             }
         }
 
+        
+
+    }
+
+    public enum Status
+    {
+        Instock,
+        InUse
     }
 
 }

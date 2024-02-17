@@ -3,6 +3,8 @@ using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
+using Dotmim.Sync.SqlServer;
+using ElectronNET.API;
 using JengrePetroleum.Blazor.Server.Services;
 using JengrePetroleum.Module.BusinessObjects;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -60,12 +62,13 @@ namespace JengrePetroleum.Blazor.Server
                     .AddSecuredXpo((serviceProvider, options) =>
                     {
                         string connectionString = null;
-                        if (Configuration.GetConnectionString("AzureConnectionString") != null)
+                        if (Configuration.GetConnectionString("ConnectionString") != null)
                         {
-                            connectionString = Configuration.GetConnectionString("AzureConnectionString");
+                            connectionString = Configuration.GetConnectionString("ConnectionString");
                         }
 
                         IXpoDataStoreProvider dataStoreProvider = XPObjectSpaceProvider.GetDataStoreProvider(connectionString, null, true);
+                        
                         SequenceGenerator.Initialize(dataStoreProvider);
 #if EASYTEST
                     if(Configuration.GetConnectionString("EasyTestConnectionString") != null) {
@@ -97,7 +100,7 @@ namespace JengrePetroleum.Blazor.Server
                             // In this case, permission requests are loaded and cached when secured data is accessed for the first time
                             // and used until the current user logs out. 
                             // See the following article for more details: https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Security.SecurityStrategy.PermissionsReloadMode.
-                            ((SecurityStrategy)securityStrategy).PermissionsReloadMode = PermissionsReloadMode.NoCache;
+                            ((SecurityStrategy)securityStrategy).PermissionsReloadMode = PermissionsReloadMode.CacheOnFirstAccess;
                         };
                     })
                     .AddPasswordAuthentication(options =>
@@ -109,6 +112,8 @@ namespace JengrePetroleum.Blazor.Server
             {
                 options.LoginPath = "/LoginPage";
             });
+
+            services.AddScoped<SqlSyncProvider>(sp => new SqlSyncProvider(""));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,6 +143,9 @@ namespace JengrePetroleum.Blazor.Server
                 endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapControllers();
             });
+            Electron.WindowManager.CreateWindowAsync();
         }
     }
+
+
 }

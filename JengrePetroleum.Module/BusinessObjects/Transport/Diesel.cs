@@ -1,8 +1,12 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.XtraSpreadsheet.Model.History;
 using JengerePetroleum.Module.BusinessObjects;
 using JengrePetroleum.Module.BusinessObjects.Station;
 using System;
@@ -14,6 +18,9 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
 	[DefaultClassOptions]
 	[DefaultProperty(nameof(Quantity))]
 	[NavigationItem("Transportation")]
+    [Appearance("DisableFields", TargetItems = "*", Criteria = "Approval == 'Approved'", FontColor = "Green", FontStyle = System.Drawing.FontStyle.Bold, Enabled = false)]
+    [Appearance("Pending", TargetItems = "*", Criteria = "Approval == 'Pending'", FontColor = "Black", FontStyle = System.Drawing.FontStyle.Bold)]
+    [Appearance("Requested", TargetItems = "*", Criteria = "Approval == 'Requested'", FontColor = "Blue", FontStyle = System.Drawing.FontStyle.Bold)]
 	public class Diesel : BaseObject
 	{ 
 		public Diesel(Session session)
@@ -24,39 +31,44 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
 		{
 			base.AfterConstruction();
 			Date = DateTime.Now;
-            Approval = Approval.Pending;
-			DieselClerk = Session.Query<Employee>().Where(e => e.Position == Position.DieselClerk).FirstOrDefault();
-            //check for null using null colescing operator in trip
-        
+            approval = Approval.Pending;
 
+            //dieselClerk = Session.Query<Employee>().Where(e => e.Position == Position.DIESELEXECUTIVE).FirstOrDefault();
+            var emp = SecuritySystem.CurrentUser as Employee;
+            dieselClerk = emp.Position == Position.DIESELEXECUTIVE ? emp : null;
 
 		}
 
 
+
+        DieselStation nONJPStation;
+        Station? dieselStation;
         private XPCollection<AuditDataItemPersistent> changeHistory;
         FillingStation station;
         Approval approval;
         DateTime date;
-        decimal tripallowance;
-        double unitprice;
-        double quantity;
+        decimal? tripallowance;
+        double? unitprice;
+        double? quantity;
         Trip trip;
         Employee dieselClerk;
 
+        [RuleRequiredField]
+        [DataSourceCriteria("Position = ' DIESELEXECUTIVE'")]
         public Employee DieselClerk
         {
             get => dieselClerk;
             set => SetPropertyValue(nameof(DieselClerk), ref dieselClerk, value);
         }
 
-      
+        [RuleRequiredField]
         public Trip Trip
         {
             get => trip;
 
             set
             {
-                if(Trip != value)
+                if (Trip != value)
                 {
                     Trip prevTrip = Trip;
                     Trip newTrip = value;
@@ -74,20 +86,29 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             }
         }
 
+        [RuleRequiredField]
+        public Station? DieselStation
+        {
+            get => dieselStation;
+            set => SetPropertyValue(nameof(DieselStation), ref dieselStation, value);
+        }
 
+        [RuleRequiredField]
         [DevExpress.Xpo.DisplayName("Diesel(Ltr)")]
-        public double Quantity
+        public double? Quantity
         {
             get => quantity;
             set => SetPropertyValue(nameof(Quantity), ref quantity, value);
         }
 
+        [RuleRequiredField]
         [DevExpress.Xpo.DisplayName("Price/Ltr")]
-        public double UnitPrice
+        public double? UnitPrice
         {
             get => unitprice;
             set => SetPropertyValue(nameof(UnitPrice), ref unitprice, value);
         }
+
 
 
         [PersistentAlias("Quantity * UnitPrice")]
@@ -96,7 +117,9 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get { return Convert.ToDecimal(EvaluateAlias(nameof(DieselCost))); }
         }
 
-        public decimal TripAlowance
+        [RuleRequiredField]
+        [XafDisplayName("Allowance")]
+        public decimal? TripAlowance
         {
             get => tripallowance;
             set => SetPropertyValue(nameof(TripAlowance), ref tripallowance, value);
@@ -109,7 +132,7 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
             get { return Convert.ToDecimal(EvaluateAlias(nameof(TotalCost))); }
         }
 
-
+        [RuleRequiredField]
         public DateTime Date
         {
             get => date;
@@ -117,7 +140,15 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         }
 
 
-       
+        //show only if diesel station is not JENGERE
+        [Appearance("HideStation", Criteria = "DieselStation = 'JENGERE'", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
+        public DieselStation NONJPStation
+        {
+            get => nONJPStation;
+            set => SetPropertyValue(nameof(NONJPStation), ref nONJPStation, value);
+        }
+
+
         public Approval Approval
         {
             get => approval;
@@ -125,6 +156,8 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         }
 
 
+   
+        [Appearance("HideStationJP", Criteria = "DieselStation != 'JENGERE'", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
         [XafDisplayName("Branch")]
         public FillingStation Station
         {
@@ -155,5 +188,12 @@ namespace JengrePetroleum.Module.BusinessObjects.Transport
         [ImageName("State_Priority_High")]
         Approved,
     }
-	
+
+
+    public enum Station
+    {
+        JENGERE,
+        OTHERS
+    }
+
 }

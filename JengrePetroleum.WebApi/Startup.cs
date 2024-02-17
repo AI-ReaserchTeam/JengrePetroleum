@@ -13,6 +13,7 @@ using JengrePetroleum.WebApi.JWT;
 using DevExpress.ExpressApp.Security.Authentication.ClientServer;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ApplicationBuilder;
+using JengrePetroleum.Module.BusinessObjects;
 
 namespace JengrePetroleum.WebApi;
 
@@ -60,13 +61,13 @@ public class Startup {
 
             builder.Security
                 .UseIntegratedMode(options => {
-                    options.RoleType = typeof(PermissionPolicyRole);
+                    options.RoleType = typeof(EmployeeRole);
                     // ApplicationUser descends from PermissionPolicyUser and supports the OAuth authentication. For more information, refer to the following topic: https://docs.devexpress.com/eXpressAppFramework/402197
                     // If your application uses PermissionPolicyUser or a custom user type, set the UserType property as follows:
-                    options.UserType = typeof(JengrePetroleum.Module.BusinessObjects.ApplicationUser);
+                    options.UserType = typeof(JengrePetroleum.Module.BusinessObjects.EmployeeBase);
                     // ApplicationUserLoginInfo is only necessary for applications that use the ApplicationUser user type.
                     // If you use PermissionPolicyUser or a custom user type, comment out the following line:
-                    options.UserLoginInfoType = typeof(JengrePetroleum.Module.BusinessObjects.ApplicationUserLoginInfo);
+                    options.UserLoginInfoType = typeof(JengrePetroleum.Module.BusinessObjects.EmployeeLoginInfo);
                     options.UseXpoPermissionsCaching();
                     options.Events.OnSecurityStrategyCreated += securityStrategy => {
                         ((SecurityStrategy)securityStrategy).PermissionsReloadMode = PermissionsReloadMode.CacheOnFirstAccess;

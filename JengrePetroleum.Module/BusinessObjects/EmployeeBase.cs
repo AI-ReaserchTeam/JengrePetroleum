@@ -121,11 +121,9 @@ namespace JengrePetroleum.Module.BusinessObjects
         {
             get
             {
-                return string.Format("{0} {1}", FirstName, LastName);
+                return string.Format("{0} {1} {2}", FirstName, LastName, UserName);
             }
         }
-
-
 
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,
@@ -157,7 +155,7 @@ namespace JengrePetroleum.Module.BusinessObjects
 
        
 
-        [Association("EmployeeBase-Bank")]
+        [Association("EmployeeBase-Bank"), DevExpress.Xpo.Aggregated]
         public XPCollection<BankDetails> Bank
         {
             get
@@ -310,36 +308,37 @@ namespace JengrePetroleum.Module.BusinessObjects
 
     public enum Position
     {
-        Employee,
-        DieselClerk,
-        StationManager,
-        MaintainanceManager,
-        TripClerk,
-        TruckClerk,
-        EmployeeClerk,
-        StoreKeeper,
-        TransportAccountant,
-        StationAccountant,
-        TransportManager,
-        Auditor,
-        Driver
+        EMPLOYEE,
+        DIESELEXECUTIVE,
+        MAINTAINANCEEXECUTIVE,
+        TRIPEXECUTIVE,
+        TRUCKEXECUTIVE,
+        EMPLOYEEXECUTIVE,
+        STOREEXECUTIVE,
+        GARAGEMANAGER,
+        GARAGEACCOUNTANT,
+        GARAGEAUDITOR,
+        STATIONMANAGER,
+        STATIONACCOUNTANT,
+        STATIONAUDITOR,
+        TRANSPORTMANAGER,
+        DRIVER
     }
 
-    //status of the employee enum
     public enum Status
     {
         [ImageName("Action_Grant")]
-        Active,
+        ACTIVE,
+        //TODO add image
+        ONTRIP,
         [ImageName("Action_Deny")]
-        Resigned,
-        [ImageName("Action_Delete")]
-        Deceased,
+        RESIGNED,
         [ImageName("Action_Close")]
-        Dismissed,
+        DISMISSED,
         [ImageName("Action_Grant")]
-        OnLeave,
-
-        OnTrip
+        ONLEAVE,
+        [ImageName("Action_Delete")]
+        DECEASED,
     }
 
   

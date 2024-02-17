@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Blazor.DesignTime;
 using DevExpress.ExpressApp.Blazor.Services;
 using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.Utils;
+using ElectronNET.API;
 
 namespace JengrePetroleum.Blazor.Server;
 
@@ -41,6 +42,7 @@ public class Program : IDesignTimeApplicationFactory {
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder => {
+                webBuilder.UseElectron(args);
                 webBuilder.UseStartup<Startup>();
             });
     XafApplication IDesignTimeApplicationFactory.Create() {

@@ -42,7 +42,7 @@ namespace JengrePetroleum.Module.BusinessObjects
             set => SetPropertyValue(nameof(Bank), ref bank, value);
         }
 
-
+        [ModelDefault("EditMask", "00000000000")]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string BVN
         {
@@ -50,7 +50,7 @@ namespace JengrePetroleum.Module.BusinessObjects
             set => SetPropertyValue(nameof(BVN), ref bVN, value);
         }
 
-
+        [ModelDefault("EditMask", "0000000000")]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string AccountNumber
         {

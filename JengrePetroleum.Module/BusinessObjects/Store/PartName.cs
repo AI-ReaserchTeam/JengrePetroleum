@@ -14,7 +14,7 @@ using System.Text;
 
 namespace JengrePetroleum.Module.BusinessObjects.Store
 {
-    [DefaultClassOptions]
+    //[DefaultClassOptions]
     
     public class PartName : UserFriendlyIdPersistentObject
     { 

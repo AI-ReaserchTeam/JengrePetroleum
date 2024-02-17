@@ -34,12 +34,33 @@
     <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="23.1.5" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="23.1.5" />
     <PackageReference Include="DevExpress.Persistent.BaseImpl.Xpo" Version="23.1.5" />
+    <PackageReference Include="Dotmim.Sync.SqlServer" Version="0.9.8" />
+    <PackageReference Include="Dotmim.Sync.SqlServer.ChangeTracking" Version="0.9.8" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="UnusableNodes.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
     <None Update="UnusableNodes1.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes10.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes11.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes14.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes15.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes16.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes17.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
     <None Update="UnusableNodes2.xml">
